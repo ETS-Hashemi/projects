@@ -92,14 +92,12 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    """Finds a solution to maze, if one exists."""
-
     # Keep track of number of states explored
     num_explored = 0
 
     # Initialize frontier to just the starting position
     start = Node(state=source, parent=None, action=None)
-    frontier = StackFrontier()
+    frontier = QueueFrontier()  # Use QueueFrontier for BFS
     frontier.add(start)
 
     # Initialize an empty explored set
@@ -110,7 +108,7 @@ def shortest_path(source, target):
 
         # If nothing left in frontier, then no path
         if frontier.empty():
-            raise Exception("no solution")
+            return None
 
         # Choose a node from the frontier
         node = frontier.remove()
@@ -118,30 +116,21 @@ def shortest_path(source, target):
 
         # If node is the goal, then we have a solution
         if node.state == target:
-            actions = []
-            cells = []
+            path = []
             while node.parent is not None:
-                actions.append(node.action)
-                cells.append(node.state)
+                path.append((node.action, node.state))
                 node = node.parent
-            actions.reverse()
-            cells.reverse()
-            solution = (actions, cells)
-            return
+            path.reverse()
+            return path
 
         # Mark node as explored
-        self.explored.add(node.state)
+        explored.add(node.state)
 
         # Add neighbors to frontier
-        for action, state in self.neighbors(node.state):
-            if not frontier.contains_state(state) and state not in self.explored:
-                child = Node(state=state, parent=node, action=action)
+        for movie_id, person_id in neighbors_for_person(node.state):
+            if not frontier.contains_state(person_id) and person_id not in explored:
+                child = Node(state=person_id, parent=node, action=movie_id)
                 frontier.add(child)
-
-
-
-    # TODO
-    raise NotImplementedError
 
 
 def person_id_for_name(name):
