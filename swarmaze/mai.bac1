@@ -1,0 +1,41 @@
+import sys
+import pygame
+from maze import Maze
+from visualizer import Visualizer
+from algorithms import DFS, BFS
+
+def main():
+    if len(sys.argv) != 3:
+        sys.exit("Usage: python main.py maze.txt [dfs|bfs]")
+
+    filename = sys.argv[1]
+    algorithm = sys.argv[2].lower()
+
+    # Load the maze
+    maze = Maze(filename)
+
+    # Initialize the visualizer with a delay of 200ms
+    visualizer = Visualizer(maze, delay=200)
+
+    # Choose the algorithm
+    if algorithm == "dfs":
+        solver = DFS(maze, visualizer)
+    elif algorithm == "bfs":
+        solver = BFS(maze, visualizer)
+    else:
+        sys.exit("Invalid algorithm. Choose 'dfs' or 'bfs'.")
+
+    print("Solving...")
+    try:
+        actions, cells = solver.solve()
+        visualizer.draw_maze(solution=cells)
+        print("Solution found!")
+    except Exception as e:
+        print(f"Error: {e}")
+
+    visualizer.wait_for_exit()
+
+
+if __name__ == "__main__":
+    pygame.init()
+    main()
