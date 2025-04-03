@@ -1,0 +1,35 @@
+TO DO:
+1) Distance Transform / Wavefront Propagation
+   - Implement Brushfire, Wavefront, and BFS-as-wavefront methods
+   - Propagate distances from goal or start (like a ripple)
+   - Reconstruct path by following decreasing distance values
+
+2) Precomputed Shortest Paths
+   - Implement APSP, Floyd–Warshall, and Johnson’s Algorithm
+   - Precompute all shortest paths for multiple queries
+   - Return paths instantly for any start–goal pair
+
+3) Navigation Mesh / Waypoint Graphs
+   - Implement NavMesh-based pathfinding, Visibility Graph, Voronoi Diagrams
+   - Preprocess walkable areas into a graph or mesh
+   - Use standard graph traversal for pathfinding
+
+4) Compressed Path Databases
+   - Implement CPD (Compressed Path Databases) and HPA*
+   - Partition the environment into sectors
+   - Precompute and compress paths for very fast retrieval
+
+5) Motion Planning Grids
+   - Implement PRM (Probabilistic Roadmap) and RRT (Rapidly-exploring Random Tree)
+   - Sample-based planning suited for continuous or robotics domains
+   - Benefit from known obstacles to plan offline paths
+
+SUMMARY TABLE
+
+ Method / Algorithm         | Use Case                         | Preprocessing? | Realtime Speed    | Dynamic Maze Support?
+-----------------------------------------------------------------------------------------------------
+ Wavefront / Distance Trans | Grid-based, known maze           | Minimal        | Fast             | No
+ Floyd–Warshall / APSP      | All shortest paths needed        | Heavy          | Instant lookup    | No
+ NavMesh / Visibility Graph | Continuous space (AI/Games)      | Moderate       | Fast             | No (unless updated)
+ CPD / HPA*                 | Large grids, repeated queries    | High           | Very fast        | Not flexible
+ PRM / RRT                  | Robotics, continuous space       | Yes            | Varies           | Some (RRT can replan)
