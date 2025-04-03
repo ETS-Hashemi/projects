@@ -113,5 +113,5 @@ Maze must be a text file like:
 
 ## 📘 Part of Swarmaze
 
-This module is part of the larger [Swarmaze](https://github.com/yourusername/Swarmaze) research project  
+This module is part of the larger [Swarmaze](https://github.com/ETS-Hashemi/Swarmaze) research project  
 by **Seyed Masoud Hashemi Ahmadi** at **École de technologie supérieure (ÉTS), Montréal**.
