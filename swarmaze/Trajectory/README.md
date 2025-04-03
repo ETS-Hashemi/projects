@@ -6,9 +6,12 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 
 ## 🖼️ Screenshot
 
-```markdown
-![Swarmaze Pathfinding Screenshot](./screenshot.png)
-```
+
+<p align="center">
+  <img src="screenshot.png" alt="Swarmaze Demo" width="500"/>
+</p>
+
+
 
 ---
 
