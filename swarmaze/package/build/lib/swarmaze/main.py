@@ -1,8 +1,8 @@
 import sys
 import pygame
-from .maze import Maze
-from .visualizer import Visualizer
-from .algorithms import DFS, BFS, AStar, Dijkstra, GreedyBestFirst, RandomWalk, BidirectionalSearch, IterativeDeepeningDFS, HillClimbing
+from maze import Maze
+from visualizer import Visualizer
+from algorithms import DFS, BFS, AStar, Dijkstra, GreedyBestFirst, RandomWalk, BidirectionalSearch, IterativeDeepeningDFS, HillClimbing
 
 
 def main():

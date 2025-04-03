@@ -1,0 +1,13 @@
+README.md
+setup.py
+swarmaze/__init__.py
+swarmaze/algorithms.py
+swarmaze/main.py
+swarmaze/maze.py
+swarmaze/visualizer.py
+swarmaze.egg-info/PKG-INFO
+swarmaze.egg-info/SOURCES.txt
+swarmaze.egg-info/dependency_links.txt
+swarmaze.egg-info/entry_points.txt
+swarmaze.egg-info/requires.txt
+swarmaze.egg-info/top_level.txt
