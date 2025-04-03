@@ -10,7 +10,7 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 > To embed it in the README:
 
 ```markdown
-![Swarmaze Pathfinding Screenshot](./screenshot.png)
+![Swarmaze Pathfinding Screenshot](swarmaze/Trajectory/screenshot.png)
 ```
 
 ---
