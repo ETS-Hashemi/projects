@@ -1,6 +1,17 @@
 # 🧠 Swarmaze — Trajectory Module
 
-This module contains the core logic and visualization tools for executing a variety of search algorithms on grid-based mazes using **Pygame**.
+This module is the **core engine** of the Swarmaze project. It implements and visualizes classical pathfinding algorithms on a 2D maze using **Pygame**. Algorithms like A*, BFS, DFS, and more are brought to life with animated step-by-step exploration, making this ideal for learning, teaching, or research in search strategies and trajectory planning.
+
+---
+
+## 🖼️ Screenshot
+
+
+<p align="center">
+  <img src="screenshot.png" alt="Swarmaze Demo" width="500"/>
+</p>
+
+
 
 ---
 
@@ -19,59 +30,55 @@ This module contains the core logic and visualization tools for executing a vari
 - Loads a maze from a text file and runs the selected algorithm with real-time visual feedback.
 
 ### `maze.py`
-- Defines the maze structure and search utilities:
-  - `Maze`: parses a maze from file and handles wall logic, neighbors, and start/goal detection.
-  - `Node`: state object used in all search algorithms, including support for cost and heuristics.
-  - `StackFrontier`, `QueueFrontier`: LIFO/FIFO data structures for DFS and BFS.
+- Maze parsing, environment modeling, and neighbor discovery.
+- Includes:
+  - `Maze`: grid layout, wall detection, start/goal detection
+  - `Node`: tree node used for storing state, parent, cost, heuristic
+  - `StackFrontier`, `QueueFrontier`: for DFS/BFS
 
 ### `algorithms.py`
-- Implements multiple pathfinding/search algorithms, each as a class with a `.solve()` method.
+- Contains all implemented search algorithms as classes with `.solve()` methods.
 - Algorithms:
-  - ✅ **DFS** (Depth-First Search)
-  - ✅ **BFS** (Breadth-First Search)
-  - ✅ **A\*** (A-Star with Manhattan heuristic)
-  - ✅ **Dijkstra** (Uniform Cost Search)
-  - ✅ **Greedy Best-First Search**
-  - ✅ **Random Walk** (non-deterministic, limited by max steps)
-  - ✅ **Bidirectional Search** (from start and goal simultaneously)
-  - ✅ **Iterative Deepening DFS**
-  - ✅ **Hill Climbing** (greedy with local minimum risk)
+  - ✅ **DFS** — Depth-First Search  
+  - ✅ **BFS** — Breadth-First Search  
+  - ✅ **A\*** — with Manhattan distance heuristic  
+  - ✅ **Dijkstra** — cost-based, uniform search  
+  - ✅ **Greedy Best-First** — fast but not always optimal  
+  - ✅ **Random Walk** — stochastic exploration  
+  - ✅ **Bidirectional Search** — expands from both ends  
+  - ✅ **Iterative Deepening DFS** — DFS with increasing depth limit  
+  - ✅ **Hill Climbing** — greedy ascent (risk of local minima)
 
 ### `visualizer.py`
-- Renders the maze and algorithm progress using color-coded cells:
-  - Red: start
-  - Green: goal
-  - White: wall
-  - Yellow: explored
-  - Blue: current agent
-  - Purple: final path
-- Handles user window interaction and frame delay for step-by-step animation.
+- Uses Pygame to visualize:
+  - Walls, open paths, start/goal nodes
+  - Explored cells (yellow)
+  - Active agent (blue)
+  - Final solution path (purple)
+- Provides `.draw_maze()` and `.wait_for_exit()` methods
 
 ---
 
 ## ▶️ How to Run
 
-Make sure `pygame` is installed:
+Install dependencies:
 
 ```bash
 pip install pygame
 ```
 
-Then run from the `trajectory/` directory:
+Run the visualizer (inside `trajectory/` folder):
 
 ```bash
 python main.py maze.txt astar
 ```
 
-Replace `astar` with any other supported algorithm name.
+---
 
-The maze file should:
-- Use `"A"` for the **start**
-- Use `"B"` for the **goal**
-- Use `" "` for open paths
-- Use any other character (e.g. `"#"`) for **walls**
+## 🔤 Maze File Format
 
-Example `maze.txt`:
+Maze must be a text file like:
+
 ```
 ##########
 #A     #B#
@@ -80,20 +87,31 @@ Example `maze.txt`:
 ##########
 ```
 
+- `A` → Start  
+- `B` → Goal  
+- ` ` → Walkable space  
+- `#` or any other → Wall
+
 ---
 
 ## 🔍 Notes
 
-- All algorithms visualize explored cells in real-time.
-- Algorithms are modular and interchangeable.
-- Maze parsing and neighbor handling is decoupled from the algorithm code.
-- Visualization delay is adjustable in `Visualizer(delay=200)` (in ms).
+- All algorithms animate their step-by-step progress.
+- You can adjust animation delay by setting `Visualizer(maze, delay=200)` in milliseconds.
+- Error messages are shown if the maze has no solution.
 
 ---
 
 ## 💡 Extension Ideas
 
-- Support diagonal movement and custom cost maps
-- Add multi-agent planning support
-- Export solution metrics and runtime stats
-- Integrate dynamic obstacle updates (e.g. for replanning)
+- Add diagonal movement, dynamic weights, or teleportation portals
+- Visualize performance metrics: time, steps, nodes expanded
+- Add GUI input for maze design or real-time re-planning
+- Connect with Swarmaze 3D engine for multi-agent extensions
+
+---
+
+## 📘 Part of Swarmaze
+
+This module is part of the larger [Swarmaze](https://github.com/ETS-Hashemi/Swarmaze) research project  
+by **Seyed Masoud Hashemi Ahmadi** at **École de technologie supérieure (ÉTS), Montréal**.
