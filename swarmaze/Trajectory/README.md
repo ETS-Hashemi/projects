@@ -6,9 +6,6 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 
 ## 🖼️ Screenshot
 
-> ✅ Place a screenshot here named `screenshot.png`  
-> To embed it in the README:
-
 ```markdown
 ![Swarmaze Pathfinding Screenshot](./screenshot.png)
 ```
