@@ -1,4 +1,5 @@
-from maze import Node, StackFrontier, QueueFrontier
+from .maze import Node, StackFrontier, QueueFrontier
+from .visualizer import Visualizer
 import heapq
 import random
 
