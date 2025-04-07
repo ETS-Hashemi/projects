@@ -1,3 +1,5 @@
+import sys
+
 class Node():
     def __init__(self, state, parent, action, cost=0, heuristic=0):
         self.state = state
