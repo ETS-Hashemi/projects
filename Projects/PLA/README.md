@@ -162,11 +162,13 @@ prob_agent/
 
 ---
 
-## 👨‍🔬 Author
+##  Academic Attribution
 
+This project is developed as part of the PhD research of  
 **Seyed Masoud Hashemi Ahmadi**  
-PhD in Systems Engineering (AI) • CPA • Data Science MSc • CS50AI Graduate  
-Developer of explainable, accountable AI for real-world decision-making.
+at **École de technologie supérieure (ÉTS), Montréal**.
+
+If you use this work in academic research, citation is appreciated.
 
 📧 Contact: [contact@AiCentralLab.com](mailto:contact@AiCentralLab.com)
 
