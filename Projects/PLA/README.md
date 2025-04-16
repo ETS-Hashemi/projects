@@ -1,10 +1,3 @@
-Great — here's your updated and complete `README.md` file including:
-
-- Your full name and contact info  
-- Apache license mention  
-- Project now fully personalized for private launch and future publication  
-
----
 
 ```markdown
 # 🧠 Probabilistic Logic Agent Framework
