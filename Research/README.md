@@ -12,10 +12,10 @@ All projects are being developed in **Python**, with a focus on **educational va
 |----------|-------------------|----------------|------------------------------|---------------------|
 | **Temporal Logic (LTL/CTL) Agents** | Rare in education, moderate in theory | ★★★★☆ | Almost none | **HIGH** |
 | **First-Order Logic (FOL) Agent** | Common in theory, rare in practical CS | ★★★☆☆ | Very few tools | **MEDIUM** |
-| **Probabilistic Logic Agents** *(active)* | Active research (PGMs), but not integrated with symbolic KBs well | ⭐⭐⭐⭐⭐ | Very rare in symbolic+probabilistic blend | **VERY HIGH** |
-| **Multi-Agent KB System with Communication** | Explored conceptually, almost no educational tools | ⭐⭐⭐⭐⭐ | Not done in Python for education | **VERY HIGH** |
-| **XAI for Logical Reasoning (Traceable Inference)** | Talked about, few visual tools | ⭐⭐⭐⭐☆ | Basically none exist | **HIGH** |
-| **Hybrid Symbolic-Neural KB Agents** | Hot area, hard to do cleanly | ⭐⭐⭐☆☆ | Some experiments, no educational examples | **MEDIUM** |
+| **Probabilistic Logic Agents** *(active)* | Active research (PGMs), but not integrated with symbolic KBs well | ★★★★★ | Very rare in symbolic+probabilistic blend | **VERY HIGH** |
+| **Multi-Agent KB System with Communication** | Explored conceptually, almost no educational tools | ★★★★★ | Not done in Python for education | **VERY HIGH** |
+| **XAI for Logical Reasoning (Traceable Inference)** | Talked about, few visual tools | ★★★★☆ | Basically none exist | **HIGH** |
+| **Hybrid Symbolic-Neural KB Agents** | Hot area, hard to do cleanly | ★★★☆☆ | Some experiments, no educational examples | **MEDIUM** |
 
 ---
 
