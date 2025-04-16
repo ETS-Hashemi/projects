@@ -91,7 +91,7 @@ A window will open. Use the UI buttons to run pathfinding algorithms and visuali
 
 ##  Academic Attribution
 
-This project was developed as part of the PhD research of  
+This project is developed as part of the PhD research of  
 **Seyed Masoud Hashemi Ahmadi**  
 at **École de technologie supérieure (ÉTS), Montréal**.
 
