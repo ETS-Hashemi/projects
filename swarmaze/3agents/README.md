@@ -2,6 +2,21 @@
 
 The **3Agents Maze Solver** is a Python-based project designed to solve multi-agent pathfinding problems in a maze environment. It supports various search algorithms and visualizes the agents' exploration and pathfinding processes. The project is built with flexibility to handle multiple agents, collision avoidance, and customizable algorithms.
 
+
+---
+
+##  Screenshot
+
+
+<p align="center">
+  <img src="screenshot.png" alt="Swarmaze Demo" width="500"/>
+</p>
+
+
+
+---
+
+
 ## Features
 
 - Multi-agent pathfinding with collision avoidance.
