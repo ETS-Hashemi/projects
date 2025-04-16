@@ -27,7 +27,7 @@ swarmaze/
 
 ---
 
-## 🚀 Features
+##  Features
 
 - Real-time pathfinding visualizer using **Pygame**
 - Implements **A\***, **BFS**, **DFS**, and **UCS**
@@ -64,7 +64,7 @@ swarmaze/
 
 ---
 
-## 🛠 Requirements
+##  Requirements
 
 - Python 3.x
 - [`pygame`](https://www.pygame.org/)
