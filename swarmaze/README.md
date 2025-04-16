@@ -10,11 +10,15 @@ It lays the groundwork for advanced systems in **3D multi-agent trajectory plann
 ```
 swarmaze/
 ├── trajectory/          # Core pathfinding logic and visualizer
-│   ├── main.py
-│   ├── maze.py
-│   ├── algorithms.py
-│   └── visualizer.py
+│   ├── main.py          # Entry point for the visualizer
+│   ├── maze.py          # Maze representation and utilities
+│   ├── algorithms.py    # Implementation of pathfinding algorithms
+│   └── visualizer.py    # Pygame-based visualization logic
 ├── map/                 # Tools for procedural map/maze generation
+├── 3agents/             # Multi-agent pathfinding and coordination logic
+│   ├── agent.py         # Agent behavior and properties
+│   ├── coordination.py  # Multi-agent coordination strategies
+│   └── simulation.py    # Simulation environment for agents
 ├── temp/                # Temporary or runtime files
 ├── text.txt             # Project notes and design documentation
 ├── LICENSE              # Apache 2.0 License
@@ -35,12 +39,18 @@ swarmaze/
 
 ## 🧠 Algorithms Implemented
 
-| Algorithm | Type            | Optimal? | Complete? |
-|----------|------------------|----------|-----------|
-| A*       | Heuristic search | ✅ Yes   | ✅ Yes    |
-| BFS      | Uninformed       | ✅ Yes   | ✅ Yes    |
-| DFS      | Uninformed       | ❌ No    | ❌ No     |
-| UCS      | Cost-based       | ✅ Yes   | ✅ Yes    |
+| Algorithm               | Type                  | Optimal? | Complete? |
+|-------------------------|-----------------------|----------|-----------|
+| A*                      | Heuristic search      | ✅ Yes   | ✅ Yes    |
+| BFS                     | Uninformed search     | ✅ Yes   | ✅ Yes    |
+| DFS                     | Uninformed search     | ✅ Yes   | ❌ No     |
+| UCS                     | Cost-based search     | ✅ Yes   | ✅ Yes    |
+| Dijkstra                | Cost-based search     | ✅ Yes   | ✅ Yes    |
+| Greedy Best-First       | Heuristic search      | ❌ No    | ❌ No     |
+| Random Walk             | Randomized search     | ❌ No    | ❌ No     |
+| Bidirectional Search    | Bidirectional search  | ✅ Yes   | ✅ Yes    |
+| Iterative Deepening DFS | Depth-limited search  | ✅ Yes   | ✅ Yes    |
+| Hill Climbing           | Heuristic search      | ❌ No    | ❌ No     |
 
 ---
 
