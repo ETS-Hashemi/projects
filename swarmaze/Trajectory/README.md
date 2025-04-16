@@ -8,7 +8,7 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 
 
 <p align="center">
-  <img src="screenshot.png" alt="Swarmaze Demo" width="500"/>
+  <img src="screenshot.png" alt="Visualization of maze solver in action" width="500"/>
 </p>
 
 
