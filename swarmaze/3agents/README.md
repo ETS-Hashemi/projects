@@ -15,7 +15,6 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 ---
 
-
 ## Features
 
 - Multi-agent pathfinding with collision avoidance.
@@ -26,6 +25,69 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
   - Greedy Best-First Search
 - Visualization of exploration and path execution using `pygame`.
 - Configurable maze structure with start and goal positions for agents.
+
+---
+
+## Collision Avoidance Mechanism
+
+The **3Agents Maze Solver** implements a robust **collision avoidance mechanism** to ensure that multiple agents can navigate the maze simultaneously without conflicts. This is achieved using a **time-based reservation table**. Below is a detailed explanation of how this mechanism works:
+
+### 1. **Reservation Table**
+The reservation table is a dictionary that tracks the positions occupied by agents at specific time steps. It ensures that no two agents occupy the same position at the same time.
+
+- **Key**: A tuple `(position, time)` where `position` is a cell in the maze and `time` is the time step.
+- **Value**: The ID of the agent occupying the position at that time.
+
+For example:
+```python
+reservation = {
+    ((2, 3), 0): 1,  # Agent 1 occupies position (2, 3) at time 0
+    ((2, 4), 1): 2,  # Agent 2 occupies position (2, 4) at time 1
+}
+```
+
+### 2. **Path Planning with Reservations**
+When planning a path for an agent, the reservation table is checked to ensure that:
+- The agent does not move into a position already reserved by another agent at the same time step.
+- The agent does not collide with another agent waiting in place.
+
+This is integrated into the pathfinding algorithms (e.g., BFS, A*, Greedy) by adding a reservation check before expanding a node.
+
+### 3. **Updating the Reservation Table**
+Once a path is found for an agent, its positions at each time step are added to the reservation table. This prevents subsequent agents from occupying the same positions at the same time.
+
+For example:
+```python
+path = [(2, 3), (2, 4), (2, 5)]  # Path for Agent 1
+for t, pos in enumerate(path):
+    reservation[(pos, t)] = 1  # Reserve the position for Agent 1
+```
+
+### 4. **Waiting in Place**
+If an agent cannot move due to a reservation conflict, it has the option to "wait in place" by staying in its current position for the next time step. This is treated as a valid move in the pathfinding algorithms.
+
+### 5. **Algorithm Integration**
+The collision avoidance mechanism is seamlessly integrated into the pathfinding algorithms. For example:
+- **BFS**: Before adding a neighbor to the queue, the reservation table is checked.
+- **A***: The reservation table is considered when calculating the cost of a move.
+- **Greedy**: The heuristic function respects the reservation constraints.
+
+### 6. **Example**
+Consider a scenario with two agents:
+- Agent 1 starts at `(1, 1)` and moves to `(1, 2)` at time 1.
+- Agent 2 starts at `(1, 2)` and plans to move to `(1, 1)` at time 1.
+
+Without collision avoidance, both agents would collide at `(1, 2)` at time 1. With the reservation table:
+- Agent 1 reserves `(1, 2)` at time 1.
+- Agent 2 detects the conflict and waits in place at `(1, 2)` for time 1.
+
+### 7. **Visualization**
+The collision avoidance mechanism is visualized in the `pygame` window:
+- Agents' paths are color-coded.
+- Shared paths (if any) are highlighted in gray.
+- Agents waiting in place are shown stationary for the conflicting time step.
+
+---
 
 ## File Structure
 
