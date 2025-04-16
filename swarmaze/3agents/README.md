@@ -5,11 +5,10 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 ---
 
-##  Screenshot
-
+## Screenshot
 
 <p align="center">
-  <img src="screenshot_3a.png" alt="Swarmaze Demo" width="500"/>
+  <img src="./screenshot_3a.png" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
 </p>
 
 
