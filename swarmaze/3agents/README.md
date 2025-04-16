@@ -116,7 +116,7 @@ Contributions are welcome! Feel free to submit issues or pull requests to improv
 - Inspired by multi-agent pathfinding problems in robotics and AI.
 - Built using Python and `pygame` for visualization.
 
-## 📘 Part of Swarmaze
+##  Part of Swarmaze
 
 This module is part of the larger [Swarmaze](https://github.com/ETS-Hashemi/Swarmaze) research project  
 by **Seyed Masoud Hashemi Ahmadi** at **École de technologie supérieure (ÉTS), Montréal**.
