@@ -1,10 +1,10 @@
-# 🧠 Swarmaze — Trajectory Module
+#  Swarmaze — Trajectory Module
 
 This module is the **core engine** of the Swarmaze project. It implements and visualizes classical pathfinding algorithms on a 2D maze using **Pygame**. Algorithms like A*, BFS, DFS, and more are brought to life with animated step-by-step exploration, making this ideal for learning, teaching, or research in search strategies and trajectory planning.
 
 ---
 
-## 🖼️ Screenshot
+##  Screenshot
 
 
 <p align="center">
@@ -15,7 +15,7 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 
 ---
 
-## 📁 Contents
+##  Contents
 
 ### `main.py`
 - Command-line entry point.
@@ -39,15 +39,15 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 ### `algorithms.py`
 - Contains all implemented search algorithms as classes with `.solve()` methods.
 - Algorithms:
-  - ✅ **DFS** — Depth-First Search  
-  - ✅ **BFS** — Breadth-First Search  
-  - ✅ **A\*** — with Manhattan distance heuristic  
-  - ✅ **Dijkstra** — cost-based, uniform search  
-  - ✅ **Greedy Best-First** — fast but not always optimal  
-  - ✅ **Random Walk** — stochastic exploration  
-  - ✅ **Bidirectional Search** — expands from both ends  
-  - ✅ **Iterative Deepening DFS** — DFS with increasing depth limit  
-  - ✅ **Hill Climbing** — greedy ascent (risk of local minima)
+  -  **DFS** — Depth-First Search  
+  -  **BFS** — Breadth-First Search  
+  -  **A\*** — with Manhattan distance heuristic  
+  -  **Dijkstra** — cost-based, uniform search  
+  -  **Greedy Best-First** — fast but not always optimal  
+  -  **Random Walk** — stochastic exploration  
+  -  **Bidirectional Search** — expands from both ends  
+  -  **Iterative Deepening DFS** — DFS with increasing depth limit  
+  -  **Hill Climbing** — greedy ascent (risk of local minima)
 
 ### `visualizer.py`
 - Uses Pygame to visualize:
@@ -59,7 +59,7 @@ This module is the **core engine** of the Swarmaze project. It implements and vi
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 Install dependencies:
 
@@ -75,7 +75,7 @@ python main.py maze.txt astar
 
 ---
 
-## 🔤 Maze File Format
+## Maze File Format
 
 Maze must be a text file like:
 
@@ -94,7 +94,7 @@ Maze must be a text file like:
 
 ---
 
-## 🔍 Notes
+## Notes
 
 - All algorithms animate their step-by-step progress.
 - You can adjust animation delay by setting `Visualizer(maze, delay=200)` in milliseconds.
@@ -102,7 +102,7 @@ Maze must be a text file like:
 
 ---
 
-## 💡 Extension Ideas
+## Extension Ideas
 
 - Add diagonal movement, dynamic weights, or teleportation portals
 - Visualize performance metrics: time, steps, nodes expanded
@@ -111,7 +111,7 @@ Maze must be a text file like:
 
 ---
 
-## 📘 Part of Swarmaze
+## Part of Swarmaze
 
 This module is part of the larger [Swarmaze](https://github.com/ETS-Hashemi/Swarmaze) research project  
 by **Seyed Masoud Hashemi Ahmadi** at **École de technologie supérieure (ÉTS), Montréal**.
