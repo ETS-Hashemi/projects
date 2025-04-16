@@ -1,11 +1,11 @@
-# 🌀 Swarmaze
+#  Swarmaze
 
 **Swarmaze** is a Python-based visualizer for classical pathfinding algorithms in 2D grid mazes.  
 It lays the groundwork for advanced systems in **3D multi-agent trajectory planning**, intended for AI agents, robotics, and swarm simulations.
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 swarmaze/
@@ -37,24 +37,24 @@ swarmaze/
 
 ---
 
-## 🧠 Algorithms Implemented
+##  Algorithms Implemented
 
 | Algorithm               | Type                  | Optimal? | Complete? |
 |-------------------------|-----------------------|----------|-----------|
-| A*                      | Heuristic search      | ✅ Yes   | ✅ Yes    |
-| BFS                     | Uninformed search     | ✅ Yes   | ✅ Yes    |
-| DFS                     | Uninformed search     | ✅ Yes   | ❌ No     |
-| UCS                     | Cost-based search     | ✅ Yes   | ✅ Yes    |
-| Dijkstra                | Cost-based search     | ✅ Yes   | ✅ Yes    |
-| Greedy Best-First       | Heuristic search      | ❌ No    | ❌ No     |
-| Random Walk             | Randomized search     | ❌ No    | ❌ No     |
-| Bidirectional Search    | Bidirectional search  | ✅ Yes   | ✅ Yes    |
-| Iterative Deepening DFS | Depth-limited search  | ✅ Yes   | ✅ Yes    |
-| Hill Climbing           | Heuristic search      | ❌ No    | ❌ No     |
+| A*                      | Heuristic search      |    Yes   |   Yes    |
+| BFS                     | Uninformed search     |    Yes   |   Yes    |
+| DFS                     | Uninformed search     |    Yes   |   No     |
+| UCS                     | Cost-based search     |    Yes   |   Yes    |
+| Dijkstra                | Cost-based search     |    Yes   |   Yes    |
+| Greedy Best-First       | Heuristic search      |    No    |   No     |
+| Random Walk             | Randomized search     |    No    |   No     |
+| Bidirectional Search    | Bidirectional search  |    Yes   |   Yes    |
+| Iterative Deepening DFS | Depth-limited search  |    Yes   |   Yes    |
+| Hill Climbing           | Heuristic search      |    No    |   No     |
 
 ---
 
-## 🧩 Roadmap
+##  Roadmap
 
 - [ ] Procedural maze generation (`map/`)
 - [ ] Multi-agent pathfinding and coordination
@@ -77,7 +77,7 @@ pip install pygame
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 Navigate to the `trajectory/` folder and run:
 
@@ -89,7 +89,7 @@ A window will open. Use the UI buttons to run pathfinding algorithms and visuali
 
 ---
 
-## 📚 Academic Attribution
+##  Academic Attribution
 
 This project was developed as part of the PhD research of  
 **Seyed Masoud Hashemi Ahmadi**  
