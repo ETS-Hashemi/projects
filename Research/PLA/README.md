@@ -1,4 +1,4 @@
-# 🧠 Probabilistic Logic Agent Framework
+# Probabilistic Logic Agent Framework
 
 ## Overview
 
@@ -6,7 +6,7 @@ The **Probabilistic Logic Agent Framework** is a Python-based system that integr
 
 ---
 
-## 🎯 Motivation
+## Motivation
 
 Real-world decisions often involve uncertainty, such as:
 > "If A and B, then probably C."
@@ -19,7 +19,24 @@ This framework bridges the gap by combining **rules with probabilities**, enabli
 
 ---
 
-## 🚀 Features
+## What Makes This Different?
+
+| **Feature**       | **This Project**                     | **CS50AI Logic Agents** | **Markov Logic Networks (MLNs)** | **Bayesian Networks** | **Black-Box AI / ML** |
+|--------------------|--------------------------------------|--------------------------|-----------------------------------|------------------------|------------------------|
+| **Logic Type**     | **Propositional logic + probabilities** | Propositional only      | First-order logic                | None                   | None                   |
+| **Explainability** | ✅ Full reasoning trace             | ✅                       | ❌ (sampling-based)               | ❌ (graph traversal)    | ❌                     |
+| **Language**       | **Pure Python**                     | Python                  | Prolog / Alchemy / Java           | Python (pgmpy)         | Python                 |
+| **Inference**      | **Model checking + probabilistic scoring** | Model checking         | MRF sampling                     | Variable elimination   | Gradient descent       |
+| **Data Requirement** | ✅ Works with few rules            | ✅                       | ❌ Needs grounding                | ❌ Graphs must be trained | ❌ Requires large data |
+| **Modifiability**  | ✅ Simple rule editing              | ✅                       | ❌ Complex template structure     | ❌ Inflexible           | ❌                     |
+| **Use Case**       | Decision support, explainable AI    | Learning logic          | Large knowledge graphs            | Probabilistic causality | Pattern recognition    |
+
+✅ **This is not an MLN, not a BN, and not just CS50AI with tweaks.**  
+It is a new, hybrid symbolic-probabilistic framework for **explainable inference in uncertain environments.**
+
+---
+
+## Features
 
 - Define rules like `"If A and B → C (0.9)"`.
 - Add facts to a knowledge base and query for probabilities.
@@ -29,9 +46,9 @@ This framework bridges the gap by combining **rules with probabilities**, enabli
 
 ---
 
-## 🛠 Installation
+## Installation
 
-```bash
+```
 git clone https://github.com/YOUR_USERNAME/probabilistic-logic-agent.git
 cd probabilistic-logic-agent
 pip install -r requirements.txt
@@ -41,7 +58,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🧬 Example Usage
+## Example Usage
 
 ```python
 from prob_agent import ProbSymbol, ProbRule, ProbKB, InferenceEngine
@@ -75,7 +92,7 @@ print(explanation)
 
 ---
 
-## 🔍 Applications
+## Applications
 
 - **Auditing & Accounting**: Fraud detection using rules like "Large transaction + no receipt = suspicious."
 - **Legal Reasoning**: Evaluate liability or guilt from structured case facts.
@@ -85,7 +102,7 @@ print(explanation)
 
 ---
 
-## 🧱 Planned Architecture
+## Planned Architecture
 
 ```
 prob_agent/
@@ -102,36 +119,36 @@ prob_agent/
 
 ---
 
-## 📚 Roadmap
+## Roadmap
 
-### ✅ Phase 1: Core Framework
+### Phase 1: Core Framework
 - [x] Implement `ProbSymbol`, `ProbRule`, `ProbKB`.
 - [x] Build inference engine with model checking.
 - [x] Add traceable explanations.
 
-### 🔄 Phase 2: Modular Extensions
+### Phase 2: Modular Extensions
 - [ ] Add forward chaining and probabilistic facts.
 - [ ] Integrate `pgmpy` or `pomegranate` for advanced inference.
 - [ ] Optimize performance for large rule sets.
 
-### 🧪 Phase 3: Evaluation
+### Phase 3: Evaluation
 - [ ] Benchmark in domains like auditing, medical, and legal reasoning.
 - [ ] Collect feedback on transparency and usability.
 
-### 📝 Phase 4: Publication
+### Phase 4: Publication
 - [ ] Write research paper for venues like IJCAI or RuleML.
 - [ ] Prepare polished GitHub repo and Colab demo.
 
 ---
 
-## 📄 License
+## License
 
 Licensed under the **Apache License 2.0**.  
 © 2025 Seyed Masoud Hashemi Ahmadi.
 
 ---
 
-## 📬 Contact
+## Contact
 
 For collaboration or inquiries:  
 📧 [contact@AiCentralLab.com](mailto:contact@AiCentralLab.com)
