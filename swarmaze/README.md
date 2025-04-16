@@ -99,7 +99,7 @@ If you use this work in academic research, citation is appreciated.
 
 ---
 
-## 📜 License
+##  License
 
 This project is licensed under the [Apache License 2.0](./LICENSE).  
 Please refer to the LICENSE file for legal details.
