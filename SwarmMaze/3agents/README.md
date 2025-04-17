@@ -8,7 +8,7 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 ## Screenshot
 
 <p align="center">
-  <img src="./Screenshot_3.png" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
+  <img src="./Screenshot_3.gif" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
 </p>
 
 
