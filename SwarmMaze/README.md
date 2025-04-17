@@ -18,7 +18,9 @@ swarmaze/
 ├── 3agents/             # Multi-agent pathfinding and coordination logic
 │   ├── agent.py         # Agent behavior and properties
 │   ├── coordination.py  # Multi-agent coordination strategies
-│   └── simulation.py    # Simulation environment for agents
+│   ├── simulation.py    # Simulation environment for agents
+│   ├── collision_visualizer.py  # Visualizes collision avoidance mechanism
+│   └── README.md        # Documentation for 3agents module
 ├── temp/                # Temporary or runtime files
 ├── text.txt             # Project notes and design documentation
 ├── LICENSE              # Apache 2.0 License
@@ -34,23 +36,29 @@ swarmaze/
 - Modular and clean architecture
 - Designed for extensibility to 3D and multi-agent systems
 - Interactive algorithm selection via buttons
+- **Multi-agent pathfinding with collision avoidance**:
+  - Uses a **time-based reservation table** to prevent conflicts.
+  - Visualized in `collision_visualizer.py`.
 
 ---
 
-##  Algorithms Implemented
+##  Multi-Agent Pathfinding and Collision Avoidance
 
-| Algorithm               | Type                  | Optimal? | Complete? |
-|-------------------------|-----------------------|----------|-----------|
-| A*                      | Heuristic search      |    Yes   |   Yes    |
-| BFS                     | Uninformed search     |    Yes   |   Yes    |
-| DFS                     | Uninformed search     |    Yes   |   No     |
-| UCS                     | Cost-based search     |    Yes   |   Yes    |
-| Dijkstra                | Cost-based search     |    Yes   |   Yes    |
-| Greedy Best-First       | Heuristic search      |    No    |   No     |
-| Random Walk             | Randomized search     |    No    |   No     |
-| Bidirectional Search    | Bidirectional search  |    Yes   |   Yes    |
-| Iterative Deepening DFS | Depth-limited search  |    Yes   |   Yes    |
-| Hill Climbing           | Heuristic search      |    No    |   No     |
+The `3agents` module introduces multi-agent pathfinding with a robust **collision avoidance mechanism**. Key features include:
+
+1. **Time-Based Reservation Table**:
+   - Ensures no two agents occupy the same position at the same time.
+   - Allows agents to "wait in place" if no valid moves are available.
+
+2. **Visualization**:
+   - Reserved cells are highlighted in red.
+   - Collisions are highlighted in yellow.
+   - Agents' paths are color-coded for clarity.
+
+3. **Integration with Algorithms**:
+   - Collision avoidance is seamlessly integrated into BFS, A*, and Greedy algorithms.
+
+For more details, refer to the [`3agents/README.md`](./3agents/README.md).
 
 ---
 
@@ -85,7 +93,11 @@ Navigate to the `trajectory/` folder and run:
 python main.py
 ```
 
-A window will open. Use the UI buttons to run pathfinding algorithms and visualize their steps.
+For multi-agent pathfinding, navigate to the `3agents/` folder and run:
+
+```bash
+python main_3a.py maze4_3a.txt astar
+```
 
 ---
 
