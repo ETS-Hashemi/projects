@@ -104,15 +104,6 @@ Contains the implementation of various search algorithms, including:
 - **HillClimbing**: Hill Climbing Search
 - **MultiAgentSearch**: Framework for multi-agent pathfinding.
 
-### `visualizer.py`
-Handles the visualization of the maze and agents' movements. Key features:
-- Draws the maze structure, agents, and their paths.
-- Animates the exploration process and path execution.
-- Supports smooth animations for agent movements.
-
-### `solver.py`
-Currently empty but reserved for additional solver logic or utilities.
-
 ### `maze4_3a.txt`
 Defines the maze structure in a text-based format. Key elements:
 - `A1`, `A2`, `A3`: Start positions for agents 1, 2, and 3.
