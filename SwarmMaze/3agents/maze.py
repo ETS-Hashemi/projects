@@ -2,6 +2,7 @@ import pygame
 import sys
 import heapq
 from collections import deque
+from algorithms import BFS, DFS, AStar, Greedy
 
 # Colors
 WHITE = (255, 255, 255)   # Wall
@@ -112,140 +113,17 @@ class PathFinder:
     """Class to find paths using various algorithms"""
     def __init__(self, maze):
         self.maze = maze
-    
-    def find_path_bfs(self, start, goal, reservation=None):
-        """Find path from start to goal using BFS with time-based reservations"""
-        queue = deque([(start, [start], 0)])  # (position, path, time)
-        visited = set([(start, 0)])  # (position, time)
-        exploration_trace = []
-        
-        while queue:
-            position, path, time = queue.popleft()
-            exploration_trace.append(position)
-            
-            if position == goal:
-                return path, exploration_trace
-            
-            for neighbor in self.maze.neighbors(position):
-                # Check if the neighbor is reserved at next time step
-                if reservation and (neighbor, time + 1) in reservation:
-                    continue
-                    
-                if (neighbor, time + 1) not in visited:
-                    visited.add((neighbor, time + 1))
-                    queue.append((neighbor, path + [neighbor], time + 1))
-            
-            # Waiting in place is also an option
-            if not reservation or (position, time + 1) not in reservation:
-                if (position, time + 1) not in visited:
-                    visited.add((position, time + 1))
-                    queue.append((position, path + [position], time + 1))
-        
-        # No path found
-        return [start], exploration_trace
-    
-    def find_path_dfs(self, start, goal, reservation=None):
-        """Find path using DFS with time-based reservations"""
-        stack = [(start, [start], 0, [])]  # (position, path, time, exploration)
-        visited = set([(start, 0)])  # (position, time)
-        
-        while stack:
-            position, path, time, exploration = stack.pop()
-            exploration.append(position)
-            
-            if position == goal:
-                return path, exploration
-            
-            # Get neighbors in reverse order for DFS
-            neighbors = list(self.maze.neighbors(position))
-            neighbors.reverse()
-            
-            # Add waiting in place
-            neighbors.append(position)
-            
-            for neighbor in neighbors:
-                if reservation and (neighbor, time + 1) in reservation:
-                    continue
-                    
-                if (neighbor, time + 1) not in visited:
-                    visited.add((neighbor, time + 1))
-                    stack.append((neighbor, path + [neighbor], time + 1, exploration.copy()))
-        
-        # No path found
-        return [start], exploration
-    
-    def find_path_astar(self, start, goal, reservation=None):
-        """Find path using A* with time-based reservations"""
-        open_set = [(0, 0, start, [start], [])]  # (f, time, position, path, exploration)
-        closed_set = set()
-        g_score = {(start, 0): 0}
-        exploration_trace = []
-        
-        while open_set:
-            f, time, current, path, exploration = heapq.heappop(open_set)
-            exploration_trace = exploration + [current]
-            
-            if current == goal:
-                return path, exploration_trace
-            
-            if (current, time) in closed_set:
-                continue
-                
-            closed_set.add((current, time))
-            
-            for neighbor in self.maze.neighbors(current) + [current]:  # Include waiting
-                if reservation and (neighbor, time + 1) in reservation:
-                    continue
-                    
-                if (neighbor, time + 1) in closed_set:
-                    continue
-                
-                # A* calculation
-                g = g_score.get((current, time), float('inf')) + 1
-                if (neighbor, time + 1) not in g_score or g < g_score[(neighbor, time + 1)]:
-                    g_score[(neighbor, time + 1)] = g
-                    h = abs(neighbor[0] - goal[0]) + abs(neighbor[1] - goal[1])
-                    f = g + h
-                    heapq.heappush(open_set, (f, time + 1, neighbor, path + [neighbor], exploration_trace.copy()))
-        
-        # No path found
-        return [start], exploration_trace
-    
-    def find_path_greedy(self, start, goal, reservation=None):
-        """Find path using Greedy Best-First Search with time-based reservations"""
-        open_set = [(0, 0, start, [start], [])]  # (h, time, position, path, exploration)
-        visited = set([(start, 0)])
-        exploration_trace = []
-        
-        while open_set:
-            h, time, current, path, exploration = heapq.heappop(open_set)
-            exploration_trace = exploration + [current]
-            
-            if current == goal:
-                return path, exploration_trace
-            
-            for neighbor in self.maze.neighbors(current) + [current]:  # Include waiting
-                if reservation and (neighbor, time + 1) in reservation:
-                    continue
-                    
-                if (neighbor, time + 1) not in visited:
-                    visited.add((neighbor, time + 1))
-                    h = abs(neighbor[0] - goal[0]) + abs(neighbor[1] - goal[1])
-                    heapq.heappush(open_set, (h, time + 1, neighbor, path + [neighbor], exploration_trace.copy()))
-        
-        # No path found
-        return [start], exploration_trace
-    
+
     def find_path(self, algorithm, start, goal, reservation=None):
         """Find path using the specified algorithm"""
         if algorithm == "dfs":
-            return self.find_path_dfs(start, goal, reservation)
+            return DFS.solve(self.maze, start, goal, reservation)
         elif algorithm == "astar":
-            return self.find_path_astar(start, goal, reservation)
+            return AStar.solve(self.maze, start, goal, reservation)
         elif algorithm == "greedy":
-            return self.find_path_greedy(start, goal, reservation)
+            return Greedy.solve(self.maze, start, goal, reservation)
         else:  # Default to BFS
-            return self.find_path_bfs(start, goal, reservation)
+            return BFS.solve(self.maze, start, goal, reservation)
 
 class Visualizer:
     """Class to visualize the maze and agents"""

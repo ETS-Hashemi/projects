@@ -1,10 +1,8 @@
 import pygame
 import sys
-from maze import Maze, Visualizer, PATH_COLORS, CELL_SIZE, WHITE, BLACK, GREEN, BLUE
-
-# Colors for visualization
-RESERVATION_COLOR = (255, 0, 0)  # Red for reserved cells
-COLLISION_COLOR = (255, 255, 0)  # Yellow for collisions
+from maze import Maze, Visualizer, PathFinder  # Add PathFinder import
+from reservation import ReservationTable
+from config import PATH_COLORS, RESERVATION_COLOR, COLLISION_COLOR, CELL_SIZE, WHITE, BLACK, GREEN, BLUE
 
 class CollisionVisualizer:
     def __init__(self, maze):
@@ -44,7 +42,7 @@ class CollisionVisualizer:
 
             # Display reservation table in the console for debugging
             print(f"Step {step}: Reservation Table")
-            for (pos, time), agent_id in reservation.items():
+            for (pos, time), agent_id in reservation.reservations.items():
                 if time == step:
                     print(f"  Time {time}: Position {pos} reserved by Agent {agent_id}")
             if collisions:
@@ -72,7 +70,7 @@ class CollisionVisualizer:
     def draw_with_reservations(self, agent_positions, reservation, current_time, collisions):
         """Draw the maze with reservations and collisions highlighted."""
         # Fill background
-        self.visualizer.screen.fill((0, 0, 0))
+        self.visualizer.screen.fill(BLACK)
 
         # Draw maze structure
         for i in range(self.maze.height):
@@ -93,7 +91,7 @@ class CollisionVisualizer:
                 pygame.draw.rect(self.visualizer.screen, BLACK, rect, 1)
 
         # Highlight reserved cells
-        for (pos, time), agent_id in reservation.items():
+        for (pos, time), agent_id in reservation.reservations.items():
             if time == current_time:
                 x = pos[1] * CELL_SIZE
                 y = pos[0] * CELL_SIZE
@@ -114,9 +112,6 @@ class CollisionVisualizer:
             rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
             color = PATH_COLORS.get(agent_id, BLUE)
             pygame.draw.rect(self.visualizer.screen, color, rect)
-
-        # Draw legend
-        self.draw_legend()
 
         # Update display
         pygame.display.flip()
@@ -142,25 +137,31 @@ class CollisionVisualizer:
 if __name__ == "__main__":
     # Example usage
     if len(sys.argv) < 2:
-        sys.exit("Usage: python collision_visualizer.py maze4_3a.txt")
+        sys.exit("Usage: python collision_visualizer.py maze4_3a.txt [algorithm]")
 
     maze_file = sys.argv[1]
+    algorithm = "bfs"  # Default to BFS
+    if len(sys.argv) > 2:
+        algorithm = sys.argv[2].lower()
+
+    print(f"Loading maze from {maze_file}...")
+    print(f"Using {algorithm.upper()} search algorithm")
+
     maze = Maze(maze_file)
 
     # Initialize pathfinder
-    from maze import PathFinder
     pathfinder = PathFinder(maze)
 
     # Dynamically compute paths for agents
     agent_paths = []
-    reservation = {}
+    reservation = ReservationTable()
     for agent_id, start in maze.starts.items():
-        path, _ = pathfinder.find_path_bfs(start, maze.goal, reservation)
+        path, _ = pathfinder.find_path(algorithm, start, maze.goal, reservation)
         agent_paths.append(path)
 
         # Update reservation table
         for t, pos in enumerate(path):
-            reservation[(pos, t)] = agent_id
+            reservation.add_reservation(pos, t, agent_id)
 
     # Validate paths to ensure no agent passes through walls
     for agent_id, path in enumerate(agent_paths, start=1):

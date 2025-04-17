@@ -25,6 +25,49 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 ---
 
+## Algorithm Comparison
+
+| Algorithm       | Optimality | Completeness | Time Complexity | Space Complexity |
+|------------------|------------|--------------|------------------|------------------|
+| **BFS**         | Yes        | Yes          | O(b^d)          | O(b^d)          |
+| **DFS**         | No         | Yes          | O(b^m)          | O(b*m)          |
+| **A***          | Yes        | Yes          | O(b^d)          | O(b^d)          |
+| **Greedy**      | No         | No           | O(b^d)          | O(b^d)          |
+
+- **Optimality**: Whether the algorithm guarantees the shortest path.
+- **Completeness**: Whether the algorithm guarantees finding a solution if one exists.
+- **Time Complexity**: `b` is the branching factor, and `d` is the depth of the shallowest solution.
+- **Space Complexity**: Memory usage of the algorithm.
+
+---
+
+## Performance Metrics
+
+The project calculates the following performance metrics for each agent:
+
+1. **Path Length**:
+   - The total number of steps taken by the agent to reach the goal.
+
+2. **Explored Cells**:
+   - The total number of cells explored by the agent during the search process.
+
+### Example Output
+```plaintext
+==================================================
+Performance Metrics for Algorithm: DFS
+==================================================
+Total Agents: 3
+--------------------------------------------------
+Agent     Path Length    Explored Cells
+--------------------------------------------------
+    1             101              250
+    2              98              230
+    3             105              270
+==================================================
+```
+
+---
+
 ## Collision Avoidance Mechanism
 
 The **3Agents Maze Solver** implements a robust and optimized **collision avoidance mechanism** to ensure that multiple agents can navigate the maze simultaneously without conflicts. This mechanism is seamlessly integrated into the pathfinding algorithms and visualized in `collision_visualizer.py`.
@@ -94,41 +137,61 @@ The `collision_visualizer.py` file provides a detailed visualization of the coll
 
 ---
 
+## Troubleshooting
+
+### Common Issues
+
+1. **`pygame` Installation Issues**:
+   - Ensure you have Python 3.7 or higher installed.
+   - Install `pygame` using:
+     ```bash
+     pip install pygame
+     ```
+
+2. **Maze File Formatting**:
+   - Ensure the maze file follows the correct format:
+     - Use `A1`, `A2`, `A3` for agent start positions.
+     - Use `B` for the goal position.
+     - Use `#` for walls and spaces for open paths.
+
+3. **Visualization Not Displaying**:
+   - Ensure your system supports `pygame` and has a graphical display.
+   - Run the script in a terminal or IDE that supports graphical output.
+
+---
+
 ## File Structure
 
-### `collision_visualizer.py`
-- Visualizes the collision avoidance mechanism step by step.
-- Highlights reserved cells, collisions, and agents' movements.
-- Uses the reservation table to ensure accurate visualization.
+### Code Structure Overview
 
-### `algorithms.py`
-Contains the implementation of various search algorithms, including:
-- **DFS**: Depth-First Search
-- **BFS**: Breadth-First Search
-- **AStar**: A* Search
-- **GreedyBestFirst**: Greedy Best-First Search
-- **MultiAgentSearch**: Framework for multi-agent pathfinding with collision avoidance.
+| File                     | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `main_3a.py`             | Main entry point for solving the maze and visualizing the solution.         |
+| `collision_visualizer.py`| Visualizes the collision avoidance mechanism step by step.                  |
+| `maze.py`                | Core logic for parsing the maze and integrating pathfinding algorithms.     |
+| `algorithms.py`          | Implements various search algorithms (BFS, DFS, A*, Greedy).               |
+| `reservation.py`         | Manages the reservation table for collision avoidance.                     |
+| `config.py`              | Centralized configuration for colors, cell size, and algorithm defaults.   |
+| `maze4_3a.txt`           | Example maze file defining the maze structure.                             |
 
-### `maze4_3a.txt`
-Defines the maze structure in a text-based format. Key elements:
-- `A1`, `A2`, `A3`: Start positions for agents 1, 2, and 3.
-- `B`: Goal position.
-- `#`: Walls.
-- ` `: Open spaces.
+---
 
-### `maze.py`
-Core logic for parsing and representing the maze. Includes:
-- Maze parsing from a text file.
-- Neighbor calculation for traversable cells.
-- Pathfinding utilities for BFS, DFS, A*, and Greedy algorithms.
-- Integration with the reservation table for collision avoidance.
+## Future Work
 
-### `main_3a.py`
-The main entry point for the project. Responsibilities:
-- Loads the maze file and initializes the maze, pathfinder, and visualizer.
-- Executes the selected search algorithm for each agent.
-- Handles collision avoidance using a reservation table.
-- Visualizes the exploration and path execution.
+- **Dynamic Agent Prioritization**:
+  - Implement dynamic prioritization of agents based on their distance to the goal or other heuristics.
+
+- **Support for Larger Mazes**:
+  - Optimize the algorithms to handle larger and more complex mazes efficiently.
+
+- **Integration with Real-World Robotics**:
+  - Extend the project to simulate real-world multi-robot pathfinding scenarios.
+
+- **Additional Algorithms**:
+  - Add support for advanced algorithms like Dijkstra's, Bidirectional Search, and Iterative Deepening DFS.
+
+- **Improved Visualization**:
+  - Add more detailed visualizations, such as heatmaps for explored cells or agent-specific animations.
 
 ---
 
@@ -136,24 +199,52 @@ The main entry point for the project. Responsibilities:
 
 ### Prerequisites
 - Python 3.7 or higher.
-- `pygame` library: Install using `pip install pygame`.
+- `pygame` library: Install using:
+  ```bash
+  pip install pygame
+  ```
 
 ### Running the Project
-Run the main script with the maze file and optional algorithm:
-   ```bash
-   python main_3a.py maze4_3a.txt [algorithm]
-   ```
-   - Replace `[algorithm]` with one of the supported algorithms (`bfs`, `dfs`, `astar`, `greedy`). Defaults to `bfs`.
 
-### Example
+#### 1. **Using `main_3a.py`**
+The `main_3a.py` script calculates paths for all agents, handles collision avoidance, and visualizes the exploration and path execution.
+
+Run the script with the maze file and an optional algorithm:
+```bash
+python main_3a.py maze4_3a.txt [algorithm]
+```
+
+- **Default Algorithm**: If no algorithm is specified, it defaults to `bfs` (Breadth-First Search).
+- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`.
+
+#### Example:
 To solve the maze using A*:
 ```bash
 python main_3a.py maze4_3a.txt astar
 ```
 
-### Output
+#### Output:
 - The console will display the path length and explored cells for each agent.
 - A `pygame` window will visualize the exploration and path execution.
+
+---
+
+#### 2. **Using `collision_visualizer.py`**
+The `collision_visualizer.py` script provides a step-by-step visualization of the collision avoidance mechanism.
+
+Run the script with the maze file and an optional algorithm:
+```bash
+python collision_visualizer.py maze4_3a.txt [algorithm]
+```
+
+- **Default Algorithm**: If no algorithm is specified, it defaults to `bfs` (Breadth-First Search).
+- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`.
+
+#### Example:
+To visualize the collision avoidance mechanism using Greedy Best-First Search:
+```bash
+python collision_visualizer.py maze4_3a.txt greedy
+```
 
 ---
 
