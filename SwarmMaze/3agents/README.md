@@ -29,6 +29,16 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 The **3Agents Maze Solver** implements a robust and optimized **collision avoidance mechanism** to ensure that multiple agents can navigate the maze simultaneously without conflicts. This mechanism is seamlessly integrated into the pathfinding algorithms and visualized in `collision_visualizer.py`.
 
+---
+
+## Screenshot
+
+<p align="center">
+  <img src="./Screenshot_3a_table.gif" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
+</p>
+
+---
+
 ### 1. **Overview**
 Collision avoidance is achieved using a **time-based reservation table**. This ensures that:
 - No two agents occupy the same position at the same time.
