@@ -1,6 +1,6 @@
-#  Swarmaze
+#  SwarmMaze
 
-**Swarmaze** is a Python-based visualizer for classical pathfinding algorithms in 2D grid mazes.  
+**SwarmMaze** is a Python-based visualizer for classical pathfinding algorithms in 2D grid mazes.  
 It lays the groundwork for advanced systems in **3D multi-agent trajectory planning**, intended for AI agents, robotics, and swarm simulations.
 
 ---
@@ -8,7 +8,7 @@ It lays the groundwork for advanced systems in **3D multi-agent trajectory plann
 ##  Repository Structure
 
 ```
-swarmaze/
+swarmMaze/
 ├── trajectory/          # Core pathfinding logic and visualizer
 │   ├── main.py          # Entry point for the visualizer
 │   ├── maze.py          # Maze representation and utilities
