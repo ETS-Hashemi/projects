@@ -139,12 +139,7 @@ The main entry point for the project. Responsibilities:
 - `pygame` library: Install using `pip install pygame`.
 
 ### Running the Project
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/3agents-maze-solver.git
-   cd 3agents-maze-solver
-   ```
-2. Run the main script with the maze file and optional algorithm:
+Run the main script with the maze file and optional algorithm:
    ```bash
    python main_3a.py maze4_3a.txt [algorithm]
    ```
