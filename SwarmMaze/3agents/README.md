@@ -306,7 +306,7 @@ The maze is represented as a grid of cells, where each cell can be:
 ### Example Maze (`maze4_3a.txt`):
 ```plaintext
 ############################
-#     A1      A2   A3         #
+#     A1      A2   A3      #
 #                 #####    #
 # #####     ###   #####    #
 # #####     ###   #####    #
