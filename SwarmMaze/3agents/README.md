@@ -14,15 +14,45 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 ## Features
 
-- Multi-agent pathfinding with **optimized collision avoidance**.
-- Support for various search algorithms:
-  - Breadth-First Search (BFS)
-  - Depth-First Search (DFS)
-  - A* Search
-  - Greedy Best-First Search
-- Visualization of exploration and path execution using `pygame`.
-- Configurable maze structure with start and goal positions for agents.
-- Centralized configuration for easy customization.
+- **Multi-Agent Pathfinding**:
+  - Supports up to three agents navigating the maze simultaneously.
+  - Implements a robust **collision avoidance mechanism** using a time-based reservation table.
+
+- **Search Algorithms**:
+  - **Breadth-First Search (BFS)**: Guarantees the shortest path and explores all possible paths systematically.
+  - **Depth-First Search (DFS)**: Explores paths deeply but does not guarantee the shortest path.
+  - **A* Search**: Combines path cost and heuristic to find the optimal path efficiently.
+  - **Greedy Best-First Search**: Uses a heuristic to prioritize exploration but does not guarantee optimality.
+  - **Dijkstra's Algorithm**: Guarantees the shortest path by exploring all possible paths with minimal cost.
+  - **Bidirectional Search**: Searches from both the start and goal positions to reduce exploration time.
+  - **Iterative Deepening DFS (IDDFS)**: Combines the benefits of DFS and BFS by incrementally increasing the search depth.
+
+- **Visualization**:
+  - Displays the maze, agents' paths, and collision avoidance in real-time using `pygame`.
+  - Highlights reserved cells, collisions, and shared paths for better understanding.
+
+- **Performance Metrics**:
+  - Measures path length and the number of explored cells for each agent.
+
+- **Customizable Configuration**:
+  - Centralized configuration for colors, cell size, and default algorithms in `config.py`.
+
+---
+
+## File Structure
+
+### Code Structure Overview
+
+| File                     | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `main_3a.py`             | Main entry point for solving the maze and visualizing the solution.         |
+| `collision_visualizer.py`| Visualizes the collision avoidance mechanism step by step.                  |
+| `maze.py`                | Core logic for parsing the maze and integrating pathfinding algorithms.     |
+| `algorithms.py`          | Implements various search algorithms (BFS, DFS, A*, Greedy, etc.).         |
+| `reservation.py`         | Manages the reservation table for collision avoidance.                     |
+| `config.py`              | Centralized configuration for colors, cell size, and algorithm defaults.   |
+| `performance_metrics.py` | Measures and reports performance metrics for multi-agent pathfinding.       |
+| `maze4_3a.txt`           | Example maze file defining the maze structure.                             |
 
 ---
 
@@ -105,139 +135,6 @@ print(reservation.is_reserved((2, 5), 0))  # False
 
 ---
 
-## Screenshot
-
-<p align="center">
-  <img src="./Screenshot_3a_table.gif" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
-</p>
-
----
-
-### 1. **Overview**
-Collision avoidance is achieved using a **time-based reservation table**. This ensures that:
-- No two agents occupy the same position at the same time.
-- Agents can "wait in place" if no valid moves are available due to conflicts.
-- Paths are dynamically planned to respect both spatial and temporal constraints.
-
-### 2. **Reservation Table**
-The reservation table is a dictionary that tracks the positions occupied by agents at specific time steps. It is the core of the collision avoidance mechanism.
-
-- **Key**: A tuple `(position, time)` where `position` is a cell in the maze and `time` is the time step.
-- **Value**: The ID of the agent occupying the position at that time.
-
-For example:
-```python
-reservation = {
-    ((2, 3), 0): 1,  # Agent 1 occupies position (2, 3) at time 0
-    ((2, 4), 1): 2,  # Agent 2 occupies position (2, 4) at time 1
-}
-```
-
-### 3. **Path Planning with Reservations**
-When planning a path for an agent, the reservation table is checked to ensure that:
-- The agent does not move into a position already reserved by another agent at the same time step.
-- The agent does not collide with another agent waiting in place.
-
-This is integrated into the pathfinding algorithms (e.g., BFS, A*, Greedy) by adding a reservation check before expanding a node.
-
-### 4. **Updating the Reservation Table**
-Once a path is found for an agent, its positions at each time step are added to the reservation table. This prevents subsequent agents from occupying the same positions at the same time.
-
-For example:
-```python
-path = [(2, 3), (2, 4), (2, 5)]  # Path for Agent 1
-for t, pos in enumerate(path):
-    reservation[(pos, t)] = 1  # Reserve the position for Agent 1
-```
-
-### 5. **Waiting in Place**
-If an agent cannot move due to a reservation conflict, it has the option to "wait in place" by staying in its current position for the next time step. This is treated as a valid move in the pathfinding algorithms.
-
-### 6. **Algorithm Integration**
-The collision avoidance mechanism is seamlessly integrated into the pathfinding algorithms. For example:
-- **BFS**: Before adding a neighbor to the queue, the reservation table is checked.
-- **A***: The reservation table is considered when calculating the cost of a move.
-- **Greedy**: The heuristic function respects the reservation constraints.
-
-### 7. **Visualization in `collision_visualizer.py`**
-The `collision_visualizer.py` file provides a detailed visualization of the collision avoidance mechanism:
-- **Reserved Cells**: Highlighted in red to indicate positions reserved by agents at specific time steps.
-- **Collisions**: Highlighted in yellow if two agents attempt to occupy the same position at the same time.
-- **Agents' Paths**: Color-coded to distinguish between agents.
-- **Waiting in Place**: Agents waiting due to conflicts are shown stationary for the conflicting time step.
-
----
-
-## Customization
-
-### Configuration File (`config.py`)
-The `config.py` file centralizes all configuration settings for the project. This makes it easy to modify visualization settings, algorithm defaults, and other parameters without editing multiple files.
-
-#### Key Configuration Options:
-- **Visualization Settings**:
-  - `CELL_SIZE`: Size of each cell in pixels.
-  - Colors for walls, agents, paths, and collisions.
-- **Algorithm Defaults**:
-  - `DEFAULT_ALGORITHM`: The default algorithm to use if none is specified (e.g., `bfs`).
-
-#### Example:
-```python
-# config.py
-CELL_SIZE = 30
-DEFAULT_ALGORITHM = "bfs"
-WHITE = (255, 255, 255)  # Wall color
-BLUE = (0, 0, 255)       # Default agent color
-```
-
-#### How to Modify:
-To change the default algorithm to A*:
-```python
-# config.py
-DEFAULT_ALGORITHM = "astar"
-```
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-1. **`pygame` Installation Issues**:
-   - Ensure you have Python 3.7 or higher installed.
-   - Install `pygame` using:
-     ```bash
-     pip install pygame
-     ```
-
-2. **Maze File Formatting**:
-   - Ensure the maze file follows the correct format:
-     - Use `A1`, `A2`, `A3` for agent start positions.
-     - Use `B` for the goal position.
-     - Use `#` for walls and spaces for open paths.
-
-3. **Visualization Not Displaying**:
-   - Ensure your system supports `pygame` and has a graphical display.
-   - Run the script in a terminal or IDE that supports graphical output.
-
----
-
-## File Structure
-
-### Code Structure Overview
-
-| File                     | Description                                                                 |
-|--------------------------|-----------------------------------------------------------------------------|
-| `main_3a.py`             | Main entry point for solving the maze and visualizing the solution.         |
-| `collision_visualizer.py`| Visualizes the collision avoidance mechanism step by step.                  |
-| `maze.py`                | Core logic for parsing the maze and integrating pathfinding algorithms.     |
-| `algorithms.py`          | Implements various search algorithms (BFS, DFS, A*, Greedy).               |
-| `reservation.py`         | Manages the reservation table for collision avoidance.                     |
-| `config.py`              | Centralized configuration for colors, cell size, and algorithm defaults.   |
-| `performance_metrics.py` | Measures and reports performance metrics for multi-agent pathfinding.       |
-| `maze4_3a.txt`           | Example maze file defining the maze structure.                             |
-
----
-
 ## Future Work
 
 - **Dynamic Agent Prioritization**:
@@ -274,7 +171,7 @@ python main_3a.py maze4_3a.txt [algorithm]
 ```
 
 - **Default Algorithm**: If no algorithm is specified, it defaults to `bfs` (Breadth-First Search).
-- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`.
+- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`, `dijkstra`, `bidirectional`, `iddfs`.
 
 #### Example:
 To solve the maze using A*:
@@ -297,7 +194,7 @@ python collision_visualizer.py maze4_3a.txt [algorithm]
 ```
 
 - **Default Algorithm**: If no algorithm is specified, it defaults to `bfs` (Breadth-First Search).
-- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`.
+- **Supported Algorithms**: `bfs`, `dfs`, `astar`, `greedy`, `dijkstra`, `bidirectional`, `iddfs`.
 
 #### Example:
 To visualize the collision avoidance mechanism using Greedy Best-First Search:
