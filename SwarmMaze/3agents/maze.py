@@ -2,7 +2,7 @@ import pygame
 import sys
 import heapq
 from collections import deque
-from algorithms import BFS, DFS, AStar, Greedy
+from algorithms import BFS, DFS, AStar, Greedy, Dijkstra, BidirectionalSearch, IterativeDeepeningDFS
 
 # Colors
 WHITE = (255, 255, 255)   # Wall
@@ -122,6 +122,12 @@ class PathFinder:
             return AStar.solve(self.maze, start, goal, reservation)
         elif algorithm == "greedy":
             return Greedy.solve(self.maze, start, goal, reservation)
+        elif algorithm == "dijkstra":
+            return Dijkstra.solve(self.maze, start, goal, reservation)
+        elif algorithm == "bidirectional":
+            return BidirectionalSearch.solve(self.maze, start, goal, reservation)
+        elif algorithm == "iddfs":
+            return IterativeDeepeningDFS.solve(self.maze, start, goal, reservation)
         else:  # Default to BFS
             return BFS.solve(self.maze, start, goal, reservation)
 

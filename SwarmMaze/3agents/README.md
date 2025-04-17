@@ -22,17 +22,21 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
   - Greedy Best-First Search
 - Visualization of exploration and path execution using `pygame`.
 - Configurable maze structure with start and goal positions for agents.
+- Centralized configuration for easy customization.
 
 ---
 
 ## Algorithm Comparison
 
-| Algorithm       | Optimality | Completeness | Time Complexity | Space Complexity |
-|------------------|------------|--------------|------------------|------------------|
-| **BFS**         | Yes        | Yes          | O(b^d)          | O(b^d)          |
-| **DFS**         | No         | Yes          | O(b^m)          | O(b*m)          |
-| **A***          | Yes        | Yes          | O(b^d)          | O(b^d)          |
-| **Greedy**      | No         | No           | O(b^d)          | O(b^d)          |
+| Algorithm               | Optimality | Completeness | Time Complexity | Space Complexity |
+|--------------------------|------------|--------------|------------------|------------------|
+| **BFS**                 | Yes        | Yes          | O(b^d)          | O(b^d)          |
+| **DFS**                 | No         | Yes          | O(b^m)          | O(b*m)          |
+| **A***                  | Yes        | Yes          | O(b^d)          | O(b^d)          |
+| **Greedy**              | No         | No           | O(b^d)          | O(b^d)          |
+| **Dijkstra's**          | Yes        | Yes          | O(b^2)          | O(b^2)          |
+| **Bidirectional Search**| No         | Yes          | O(b^(d/2))       | O(b^(d/2))       |
+| **Iterative Deepening** | No         | Yes          | O(b^d)          | O(d*b)          |
 
 - **Optimality**: Whether the algorithm guarantees the shortest path.
 - **Completeness**: Whether the algorithm guarantees finding a solution if one exists.
@@ -71,6 +75,33 @@ Agent     Path Length    Explored Cells
 ## Collision Avoidance Mechanism
 
 The **3Agents Maze Solver** implements a robust and optimized **collision avoidance mechanism** to ensure that multiple agents can navigate the maze simultaneously without conflicts. This mechanism is seamlessly integrated into the pathfinding algorithms and visualized in `collision_visualizer.py`.
+
+### Reservation Table
+The reservation table is implemented in the `reservation.py` file. It is a dedicated class (`ReservationTable`) that manages time-based reservations for collision avoidance.
+
+#### Key Features:
+- **Add Reservations**:
+  - Reserve a position for a specific agent at a specific time step.
+- **Check Reservations**:
+  - Verify if a position is reserved at a given time step.
+- **Iterate Over Reservations**:
+  - Expose reservations as an iterable for debugging or advanced operations.
+
+#### Example Usage:
+```python
+from reservation import ReservationTable
+
+# Initialize reservation table
+reservation = ReservationTable()
+
+# Add reservations
+reservation.add_reservation((2, 3), 0, 1)  # Agent 1 reserves position (2, 3) at time 0
+reservation.add_reservation((2, 4), 1, 2)  # Agent 2 reserves position (2, 4) at time 1
+
+# Check reservations
+print(reservation.is_reserved((2, 3), 0))  # True
+print(reservation.is_reserved((2, 5), 0))  # False
+```
 
 ---
 
@@ -137,6 +168,36 @@ The `collision_visualizer.py` file provides a detailed visualization of the coll
 
 ---
 
+## Customization
+
+### Configuration File (`config.py`)
+The `config.py` file centralizes all configuration settings for the project. This makes it easy to modify visualization settings, algorithm defaults, and other parameters without editing multiple files.
+
+#### Key Configuration Options:
+- **Visualization Settings**:
+  - `CELL_SIZE`: Size of each cell in pixels.
+  - Colors for walls, agents, paths, and collisions.
+- **Algorithm Defaults**:
+  - `DEFAULT_ALGORITHM`: The default algorithm to use if none is specified (e.g., `bfs`).
+
+#### Example:
+```python
+# config.py
+CELL_SIZE = 30
+DEFAULT_ALGORITHM = "bfs"
+WHITE = (255, 255, 255)  # Wall color
+BLUE = (0, 0, 255)       # Default agent color
+```
+
+#### How to Modify:
+To change the default algorithm to A*:
+```python
+# config.py
+DEFAULT_ALGORITHM = "astar"
+```
+
+---
+
 ## Troubleshooting
 
 ### Common Issues
@@ -172,6 +233,7 @@ The `collision_visualizer.py` file provides a detailed visualization of the coll
 | `algorithms.py`          | Implements various search algorithms (BFS, DFS, A*, Greedy).               |
 | `reservation.py`         | Manages the reservation table for collision avoidance.                     |
 | `config.py`              | Centralized configuration for colors, cell size, and algorithm defaults.   |
+| `performance_metrics.py` | Measures and reports performance metrics for multi-agent pathfinding.       |
 | `maze4_3a.txt`           | Example maze file defining the maze structure.                             |
 
 ---
@@ -186,9 +248,6 @@ The `collision_visualizer.py` file provides a detailed visualization of the coll
 
 - **Integration with Real-World Robotics**:
   - Extend the project to simulate real-world multi-robot pathfinding scenarios.
-
-- **Additional Algorithms**:
-  - Add support for advanced algorithms like Dijkstra's, Bidirectional Search, and Iterative Deepening DFS.
 
 - **Improved Visualization**:
   - Add more detailed visualizations, such as heatmaps for explored cells or agent-specific animations.
@@ -258,19 +317,7 @@ python collision_visualizer.py maze4_3a.txt greedy
 ## License
 
 ```
-Copyright 2023 Your Name
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Licensed under the Apache License, Version 2.0.
 ```
 
 ---
