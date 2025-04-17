@@ -296,8 +296,40 @@ python collision_visualizer.py maze4_3a.txt greedy
 
 ## Customizing the Maze
 - Edit `maze4_3a.txt` to define your own maze.
-- Use `A1`, `A2`, `A3` for agent start positions and `B` for the goal.
-- Use `#` for walls and spaces for open paths.
+
+The maze is represented as a grid of cells, where each cell can be:
+- **Wall (`#`)**: Impassable by agents.
+- **Open Space (` `)**: Traversable by agents.
+- **Start Positions (`A1`, `A2`, `A3`)**: Initial positions of agents 1, 2, and 3.
+- **Goal Position (`B`)**: The target position that all agents aim to reach.
+
+### Example Maze (`maze4_3a.txt`):
+```plaintext
+############################
+#     A1      A2   A3         #
+#                 #####    #
+# #####     ###   #####    #
+# #####     ###   #####    #
+# #####                    #
+#        #####  ####  ##   #
+#  ##    #####  ####  ##   #
+#  ##    #####             #
+#                   ##     #
+#   #####   #####   ##     #
+#   #####   #####          #
+#                          #
+#       ####    ####       #
+####    ####    ####   #####
+####            ####   #####
+#         ####             #
+#  #####  ####    ####     #
+#  #####          ####     #
+#  #####     ###           #
+#            ###   ##      #
+#    #   B                 #
+############################
+```
+
 
 ---
 
