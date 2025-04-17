@@ -88,8 +88,31 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 
 The **3Agents Maze Solver** implements a robust and optimized **collision avoidance mechanism** to ensure that multiple agents can navigate the maze simultaneously without conflicts. This mechanism is seamlessly integrated into the pathfinding algorithms and visualized in `collision_visualizer.py`.
 
-### Reservation Table
+### 1. **Overview**
+Collision avoidance is achieved using a **time-based reservation table**. This ensures that:
+- No two agents occupy the same position at the same time.
+- Agents can "wait in place" if no valid moves are available due to conflicts.
+- Paths are dynamically planned to respect both spatial and temporal constraints.
+
+
+
+
+---
+
+## Screenshot
+
+<p align="center">
+  <img src="./Screenshot_3a_table.gif" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
+</p>
+
+---
+
+
+
+### 2. **Reservation Table**
+The reservation table is a dictionary that tracks the positions occupied by agents at specific time steps. It is the core of the collision avoidance mechanism.
 The reservation table is implemented in the `reservation.py` file. It is a dedicated class (`ReservationTable`) that manages time-based reservations for collision avoidance.
+
 
 #### Key Features:
 - **Add Reservations**:
@@ -99,6 +122,9 @@ The reservation table is implemented in the `reservation.py` file. It is a dedic
 - **Iterate Over Reservations**:
   - Expose reservations as an iterable for debugging or advanced operations.
 
+- **Key**: A tuple `(position, time)` where `position` is a cell in the maze and `time` is the time step.
+- **Value**: The ID of the agent occupying the position at that time.
+  
 #### Example Usage:
 ```python
 from reservation import ReservationTable
@@ -114,28 +140,6 @@ reservation.add_reservation((2, 4), 1, 2)  # Agent 2 reserves position (2, 4) at
 print(reservation.is_reserved((2, 3), 0))  # True
 print(reservation.is_reserved((2, 5), 0))  # False
 ```
-
----
-
-## Screenshot
-
-<p align="center">
-  <img src="./Screenshot_3a_table.gif" alt="Visualization of 3Agents Maze Solver in action" width="500"/>
-</p>
-
----
-
-### 1. **Overview**
-Collision avoidance is achieved using a **time-based reservation table**. This ensures that:
-- No two agents occupy the same position at the same time.
-- Agents can "wait in place" if no valid moves are available due to conflicts.
-- Paths are dynamically planned to respect both spatial and temporal constraints.
-
-### 2. **Reservation Table**
-The reservation table is a dictionary that tracks the positions occupied by agents at specific time steps. It is the core of the collision avoidance mechanism.
-
-- **Key**: A tuple `(position, time)` where `position` is a cell in the maze and `time` is the time step.
-- **Value**: The ID of the agent occupying the position at that time.
 
 For example:
 ```python
@@ -292,8 +296,40 @@ python collision_visualizer.py maze4_3a.txt greedy
 
 ## Customizing the Maze
 - Edit `maze4_3a.txt` to define your own maze.
-- Use `A1`, `A2`, `A3` for agent start positions and `B` for the goal.
-- Use `#` for walls and spaces for open paths.
+
+The maze is represented as a grid of cells, where each cell can be:
+- **Wall (`#`)**: Impassable by agents.
+- **Open Space (` `)**: Traversable by agents.
+- **Start Positions (`A1`, `A2`, `A3`)**: Initial positions of agents 1, 2, and 3.
+- **Goal Position (`B`)**: The target position that all agents aim to reach.
+
+### Example Maze (`maze4_3a.txt`):
+```plaintext
+############################
+#     A1      A2   A3      #
+#                 #####    #
+# #####     ###   #####    #
+# #####     ###   #####    #
+# #####                    #
+#        #####  ####  ##   #
+#  ##    #####  ####  ##   #
+#  ##    #####             #
+#                   ##     #
+#   #####   #####   ##     #
+#   #####   #####          #
+#                          #
+#       ####    ####       #
+####    ####    ####   #####
+####            ####   #####
+#         ####             #
+#  #####  ####    ####     #
+#  #####          ####     #
+#  #####     ###           #
+#            ###   ##      #
+#    #   B                 #
+############################
+```
+
 
 ---
 
