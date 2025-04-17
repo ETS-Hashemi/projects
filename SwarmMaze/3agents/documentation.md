@@ -9,19 +9,29 @@ This document provides a comprehensive overview of the **3Agents Maze Solver** p
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [File Structure](#file-structure)
-4. [Algorithms](#algorithms)
-5. [Collision Avoidance Mechanism](#collision-avoidance-mechanism)
-6. [Performance Metrics](#performance-metrics)
-7. [Customization](#customization)
-8. [Usage](#usage)
-9. [Future Work](#future-work)
-10. [Academic Attribution](#academic-attribution)
+4. [Maze Representation](#maze-representation)
+5. [Algorithms](#algorithms)
+    - [Breadth-First Search (BFS)](#breadth-first-search-bfs)
+    - [Depth-First Search (DFS)](#depth-first-search-dfs)
+    - [A* Search](#a-search)
+    - [Greedy Best-First Search](#greedy-best-first-search)
+    - [Dijkstra's Algorithm](#dijkstras-algorithm)
+    - [Bidirectional Search](#bidirectional-search)
+    - [Iterative Deepening DFS (IDDFS)](#iterative-deepening-dfs-iddfs)
+6. [Collision Avoidance Mechanism](#collision-avoidance-mechanism)
+7. [Performance Metrics](#performance-metrics)
+8. [Customization](#customization)
+9. [Usage](#usage)
+10. [Future Work](#future-work)
+11. [Academic Attribution](#academic-attribution)
 
 ---
 
 ## Introduction
 
 The **3Agents Maze Solver** is a Python-based project designed to solve multi-agent pathfinding problems in a maze environment. It supports various search algorithms and visualizes the agents' exploration and pathfinding processes. The project is built with flexibility to handle multiple agents, collision avoidance, and customizable algorithms.
+
+This project is particularly useful for studying multi-agent systems, collision avoidance, and pathfinding algorithms in constrained environments.
 
 ---
 
@@ -74,6 +84,43 @@ The **3Agents Maze Solver** is a Python-based project designed to solve multi-ag
 | `config.py`              | Centralized configuration for colors, cell size, and algorithm defaults.   |
 | `performance_metrics.py` | Measures and reports performance metrics for multi-agent pathfinding.       |
 | `maze4_3a.txt`           | Example maze file defining the maze structure.                             |
+
+---
+
+## Maze Representation
+
+The maze is represented as a grid of cells, where each cell can be:
+- **Wall (`#`)**: Impassable by agents.
+- **Open Space (` `)**: Traversable by agents.
+- **Start Positions (`A1`, `A2`, `A3`)**: Initial positions of agents 1, 2, and 3.
+- **Goal Position (`B`)**: The target position that all agents aim to reach.
+
+### Example Maze (`maze4_3a.txt`):
+```plaintext
+############################
+#     A1      A2   A3         #
+#                 #####    #
+# #####     ###   #####    #
+# #####     ###   #####    #
+# #####                    #
+#        #####  ####  ##   #
+#  ##    #####  ####  ##   #
+#  ##    #####             #
+#                   ##     #
+#   #####   #####   ##     #
+#   #####   #####          #
+#                          #
+#       ####    ####       #
+####    ####    ####   #####
+####            ####   #####
+#         ####             #
+#  #####  ####    ####     #
+#  #####          ####     #
+#  #####     ###           #
+#            ###   ##      #
+#    #   B                 #
+############################
+```
 
 ---
 
