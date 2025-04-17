@@ -59,11 +59,12 @@ class DFS():
 
 
 class BFS():
-    def __init__(self, maze, visualizer):
+    def __init__(self, maze, visualizer, reservation=None):
         self.maze = maze
         self.visualizer = visualizer
         self.frontier = QueueFrontier()
         self.explored = set()
+        self.reservation = reservation or {}
 
     def solve(self):
         start = Node(state=self.maze.start, parent=None, action=None)
@@ -86,19 +87,23 @@ class BFS():
             self.explored.add(node.state)
 
             for action, state in self.maze.neighbors(node.state):
+                time = len(node.path())  # Time step is the length of the path so far
                 if not self.frontier.contains_state(state) and state not in self.explored:
-                    child = Node(state=state, parent=node, action=action)
-                    self.frontier.add(child)
+                    # Check reservation table for conflicts
+                    if (state, time) not in self.reservation:
+                        child = Node(state=state, parent=node, action=action)
+                        self.frontier.add(child)
 
         raise Exception("No solution")
 
 
 class AStar():
-    def __init__(self, maze, visualizer):
+    def __init__(self, maze, visualizer, reservation=None):
         self.maze = maze
         self.visualizer = visualizer
         self.frontier = PriorityQueueFrontier()
         self.explored = set()
+        self.reservation = reservation or {}
 
     def heuristic(self, state):
         """
@@ -129,11 +134,14 @@ class AStar():
             self.explored.add(node.state)
 
             for action, state in self.maze.neighbors(node.state):
+                time = len(node.path())  # Time step is the length of the path so far
                 if not self.frontier.contains_state(state) and state not in self.explored:
-                    cost = node.cost + 1  # Increment cost by 1 for each step
-                    heuristic = self.heuristic(state)
-                    child = Node(state=state, parent=node, action=action, cost=cost, heuristic=heuristic)
-                    self.frontier.add(child)
+                    # Check reservation table for conflicts
+                    if (state, time) not in self.reservation:
+                        cost = node.cost + 1  # Increment cost by 1 for each step
+                        heuristic = self.heuristic(state)
+                        child = Node(state=state, parent=node, action=action, cost=cost, heuristic=heuristic)
+                        self.frontier.add(child)
 
         raise Exception("No solution")
 

@@ -102,9 +102,11 @@ class Maze:
         return neighbors
     
     def is_valid_position(self, position):
-        """Check if a position is valid (within bounds and not a wall)"""
+        """Check if a position is valid (within bounds and not a wall)."""
         i, j = position
-        return 0 <= i < self.height and 0 <= j < self.width and not self.walls[i][j]
+        if 0 <= i < self.height and 0 <= j < self.width:
+            return not self.walls[i][j]  # Valid if not a wall
+        return False  # Out of bounds
 
 class PathFinder:
     """Class to find paths using various algorithms"""
