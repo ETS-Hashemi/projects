@@ -19,13 +19,13 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Create venv, install OpenAI 0.28.1 (stable), run agent
+      - name: Create venv, install OpenAI, run agent
         working-directory: Research/PLA
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install --no-cache-dir openai==0.28.1
+          pip install openai==0.28.1
           python -c "import openai; print('✅ OpenAI version:', openai.__version__)"
           python project_agent/main.py
         env:
@@ -38,6 +38,4 @@ jobs:
           git config user.email "bot@example.com"
           git add NEXT_STEPS.md
           git commit -m "🤖 Update next steps [bot]" || echo "No changes to commit"
-          git push
-        env:
-          GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+          git push https://x-access-token:${{ secrets.GH_BOT_TOKEN }}@github.com/ETS-Hashemi/projects.git HEAD:main
