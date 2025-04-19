@@ -28,6 +28,8 @@ jobs:
       - name: Run project agent (PLA)
         working-directory: Research/PLA
         run: python project_agent/main.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Commit NEXT_STEPS.md
         working-directory: Research/PLA
