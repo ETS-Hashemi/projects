@@ -207,28 +207,6 @@ print(f"Explanation: {explanation}")
 
 ---
 
-## Roadmap
-
-### Phase 1: Core Framework
-- [x] Implement `ProbSymbol`, `ProbRule`, `ProbKB`.
-- [x] Build inference engine with model checking.
-- [x] Add traceable explanations.
-
-### Phase 2: Modular Extensions
-- [ ] Add forward chaining and probabilistic facts.
-- [ ] Integrate `pgmpy` or `pomegranate` for advanced inference.
-- [ ] Optimize performance for large rule sets.
-
-### Phase 3: Evaluation
-- [ ] Benchmark in domains like auditing, medical, and legal reasoning.
-- [ ] Collect feedback on transparency and usability.
-
-### Phase 4: Publication
-- [ ] Write research paper for venues like IJCAI or RuleML.
-- [ ] Prepare polished GitHub repo and Colab demo.
-
----
-
 ## License
 
 Licensed under the **Apache License 2.0**.  
