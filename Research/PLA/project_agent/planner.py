@@ -1,6 +1,7 @@
 from openai import OpenAI
+import os
 
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 def generate_next_steps(prompt):
     response = client.chat.completions.create(
