@@ -1,8 +1,9 @@
 import os
 import openai
-from project_agent.analyzer import analyze_repo
-from project_agent.planner import generate_next_steps
-from project_agent.writer import write_report
+from analyzer import analyze_repo
+from planner import generate_next_steps
+from writer import write_report
+
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
