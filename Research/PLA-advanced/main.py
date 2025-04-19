@@ -3,15 +3,23 @@ from scenario_loader import load_scenario
 from prob import InferenceEngine
 
 def main():
-    # Check if scenario file and context number are provided as arguments
-    if len(sys.argv) != 3:
-        print("Usage: python main.py <scenario_config.json> <context_number>")
+    # Check if scenario file is provided as an argument
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <scenario_config.json> [context_number]")
         sys.exit(1)
 
     # Load the scenario from the configuration file
     config_path = sys.argv[1]
-    context_number = sys.argv[2]
-    kb, queries = load_scenario(config_path)
+    # Default context_number to "1" if not provided
+    context_number = sys.argv[2] if len(sys.argv) >= 3 else "1"
+    try:
+        kb, queries = load_scenario(config_path)
+    except FileNotFoundError:
+        print(f"Error: The file '{config_path}' was not found. Please check the file name and path.")
+        sys.exit(1)
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
     # Display the knowledge base
     print("=" * 60)
@@ -28,15 +36,19 @@ def main():
     # Set the context based on the context number
     context = {}
     try:
-        context_number = int(context_number)  # Convert context_number to an integer
         for rule in kb.rules:
-            if hasattr(rule, "context") and str(context_number) in rule.context:
-                context.update(rule.context[str(context_number)])
-    except ValueError:
-        print("Error: Context number must be an integer.")
+            if hasattr(rule, "context") and context_number in rule.context:
+                context.update(rule.context[context_number])
+    except KeyError:
+        print(f"Error: Context number '{context_number}' not found in the scenario.")
         sys.exit(1)
 
     kb.set_context(context)
+
+    # Flatten rule contexts to use active context directly
+    for rule in kb.rules:
+        if isinstance(rule.context, dict) and context_number in rule.context:
+            rule.context = rule.context[context_number]
 
     # Display the active context
     print("\n                  ACTIVE CONTEXT")

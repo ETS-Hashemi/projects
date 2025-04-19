@@ -121,36 +121,42 @@ Steps:
 
 ## **4. Context-Aware Reasoning**
 
-Context-aware reasoning dynamically adjusts rule probabilities based on the current context. This feature allows the framework to adapt to real-world variability, making it more robust and applicable to dynamic environments.
+Context-aware reasoning dynamically adjusts rule probabilities based on the current context. This feature allows the framework to adapt to external conditions in real time.
 
-### **4.1 Context Variables**
-- Context variables represent external conditions that influence the probability of a rule.
-- Each rule can define a set of context variables and their weights.
+### **4.1 Context Variables and Adjustment**
 
-#### **Example**
-```json
-{
-  "condition": ["PersistentCough", "WeightLoss"],
-  "result": "LungCancerRisk",
-  "probability": 0.7,
-  "context": {
-    "PatientAge>60": 1.2,
-    "SmokingHistory": 1.5
-  }
+Each rule can specify context variables along with their weights. The adjusted probability of a rule is computed as:
+```
+P_adjusted = P_rule * ∏(weight for each active context variable)
+```
+If the computed value exceeds 1.0, it is capped at 1.0.
+
+### **4.2 Context Flattening**
+
+A new step, **Context Flattening**, has been introduced within the framework. After loading a scenario and setting a global context (by specifying a context number), each rule's context is “flattened” so that only the active context dictionary is used during probability adjustment. This ensures that the `adjusted_probability` method multiplies the base probability by the correct weight directly.
+
+For example, if a rule defines:
+```
+"context": {
+    "1": {"AgeOver60": 1.2},
+    "2": {"SmokingHistory": 1.3}
 }
 ```
-
-### **4.2 Adjusted Probability**
-The adjusted probability of a rule is calculated as:
+and the active context is `"1"`, the rule's context is flattened to:
 ```
-P_adjusted = P_rule * ∏(weights of active context variables)
+{"AgeOver60": 1.2}
 ```
+Then the adjusted probability is:  
+`0.7 * 1.2 = 0.84`.
 
-#### **Algorithm**
-1. Initialize the adjusted probability as the base probability of the rule.
-2. For each context variable in the rule:
-   - If the variable is active in the current context, multiply the probability by the variable's weight.
-3. Ensure the adjusted probability does not exceed 1.0.
+### **4.3 Parallel Scenario Modeling**
+
+In addition to context-aware reasoning, the framework supports the modeling of complex parallel scenarios that span different domains (e.g., accounting, auditing, pharmaceutical, oncology, logistics). Each domain scenario is defined in a separate JSON configuration file with its own facts, rules, and queries. This approach allows:
+- Domain-specific customization of rules and context.
+- Comparison between different scenarios across domains.
+- Scalability and modularity in scenario management.
+
+For example, an accounting scenario might include rules for fraud detection based on transaction patterns, while a pharmaceutical scenario may model recall and market withdrawal decisions. Both leverage the same probabilistic reasoning core.
 
 ---
 

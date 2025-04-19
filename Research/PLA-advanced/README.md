@@ -2,19 +2,22 @@
 
 ## Overview
 
-The **Probabilistic Logic Agent Framework** is a Python-based system that integrates **symbolic propositional logic** with **probabilistic reasoning**. It enables reasoning in **uncertain environments** using **weighted logical rules** to infer probabilistic outcomes. Designed for **explainability**, **context-awareness**, and **modularity**, this framework is ideal for domains like auditing, legal reasoning, medical AI, and decision support systems.
+The **Probabilistic Logic Agent Framework** integrates symbolic and probabilistic reasoning with context-aware adjustments, and now also supports modeling complex parallel scenarios across diverse domains such as accounting, auditing, pharmaceutical, oncology, and logistics.
 
 ---
 
 ## Features
 
 - **Hybrid Reasoning**: Combines symbolic logic with probabilistic reasoning.
-- **Context-Aware Reasoning**: Dynamically adjusts rule probabilities based on the current context.
-- **Explainability**: Provides detailed reasoning chains for every query.
-- **Modular Design**: Easily extendable for different domains.
-- **Lightweight**: No heavy dependencies, works with pure Python.
-- **JSON Configurations**: Define facts, rules, and queries in simple JSON files.
-- **Caching**: Optimized performance with caching for intermediate results.
+- **Context-Aware Reasoning**: Dynamically adjusts rule probabilities using context variables.
+- **Parallel Scenario Modeling**: Define and manage complex domain-specific scenarios in separate JSON files. For example:
+  - `scenario_accounting_parallel.json`
+  - `scenario_auditing_parallel.json`
+  - `scenario_pharmaceutical_parallel.json`
+  - `scenario_oncology_parallel.json`
+  - `scenario_logistics_complex.json`
+- **Explainability**: Provides clear reasoning chains for each query.
+- **Modular and Lightweight**: Easily extended to support additional domains with minimal dependencies.
 
 ---
 
@@ -35,56 +38,67 @@ The **Probabilistic Logic Agent Framework** is a Python-based system that integr
 
 ## How to Use the Framework
 
-### 1. Modify the JSON Configuration File
+### 1. Configure Scenarios
 
-The framework uses JSON files to define the knowledge base (facts and rules) and queries. Here's an example configuration file:
+Use domain-specific JSON files to define facts, rules (including context data), and queries.
 
+Example:
 ```json
 {
   "facts": [
-    "AdverseReaction",
-    "NewDrug"
+    "PersistentCough",
+    "WeightLoss",
+    "ChestPain"
   ],
   "rules": [
     {
-      "condition": ["AdverseReaction", "NewDrug"],
-      "result": "RecallRequired",
-      "probability": 0.7
+      "condition": ["PersistentCough", "WeightLoss"],
+      "result": "LungCancerRisk",
+      "probability": 0.7,
+      "context": {
+        "1": {
+          "AgeOver60": 1.2
+        },
+        "2": {
+          "SmokingHistory": 1.3
+        }
+      }
     },
     {
-      "condition": ["RecallRequired"],
-      "result": "PublicNotification",
-      "probability": 0.95
+      "condition": ["LungCancerRisk", "ChestPain"],
+      "result": "BiopsyRequired",
+      "probability": 0.9,
+      "context": {
+        "1": {
+          "FamilyHistoryOfCancer": 1.0
+        },
+        "2": {
+          "HighTumorMarkerLevels": 1.1
+        }
+      }
     }
   ],
   "queries": [
-    "PublicNotification"
+    "LungCancerRisk",
+    "BiopsyRequired"
   ]
 }
 ```
+In this example, after loading the scenario, the framework “flattens” the rule contexts—only the active context (e.g., `"1"` or `"2"`) is used for probability adjustments.
 
-#### Explanation:
-- **Facts**: A list of known facts (e.g., `"AdverseReaction"`, `"NewDrug"`).
-- **Rules**: A list of probabilistic rules. Each rule has:
-  - `condition`: A list of facts that must be true for the rule to apply.
-  - `result`: The fact inferred if the rule applies.
-  - `probability`: The probability of the result being true if the condition is satisfied.
-- **Queries**: A list of facts to query the knowledge base for.
+### 2. Select a Scenario and Context
 
-### 2. Run the Framework
-
-Use the `main.py` script to load a JSON configuration file and query the knowledge base.
-
+Run the framework with the desired scenario configuration:
 ```bash
-python main.py <path_to_json_config>
+python main.py <scenario_config.json> [context_number]
 ```
+If the context number is omitted, it defaults to "1".
 
-For example:
-```bash
-python main.py scenario_pharmaceutical_complex.json
-```
+### 3. Examine Results
 
-### 3. Sample Output
+The output will display the knowledge base, active context, and query results, including adjusted probabilities.
+
+### 4. Sample Output
 
 Here’s an example output for the `scenario_pharmaceutical_complex.json` file:
 
@@ -181,9 +195,10 @@ print(f"Explanation: {explanation}")
 ## Applications
 
 - **Auditing & Accounting**: Detect fraud based on transaction patterns.
-- **Medical Diagnosis**: Infer diagnoses from symptoms with known probabilities.
-- **Legal Reasoning**: Evaluate liability or guilt from structured case facts.
-- **Educational AI**: Infer student understanding from indirect indicators.
+- **Medical Diagnosis**: Infer diagnoses from clinical indicators.
+- **Legal Reasoning**: Evaluate liability from structured case facts.
+- **Educational AI**: Support decision making in learning environments.
+- **Supply Chain Optimization**: Adjust strategies based on dynamic market conditions.
 
 ---
 
