@@ -10,27 +10,24 @@ jobs:
   suggest-next-steps:
     runs-on: ubuntu-latest
 
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip uninstall -y openai || true
-          pip install --no-cache-dir openai==1.3.9
-          python -c "import openai; print('✅ Installed OpenAI version:', openai.__version__)"
-
-      - name: Run project agent (PLA)
+      - name: Create venv, install OpenAI 1.3.9, run agent
         working-directory: Research/PLA
-        run: python project_agent/main.py
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install --no-cache-dir openai==1.3.9
+          python -c "import openai; print('✅ OpenAI version:', openai.__version__)"
+          python project_agent/main.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
