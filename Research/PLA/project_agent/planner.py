@@ -1,9 +1,11 @@
-from openai import OpenAI
+import openai
+import os
 
-client = OpenAI()  # DO NOT pass api_key here — SDK auto-loads from env var
+# Explicitly set the API key (this avoids all proxy-related issues)
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_next_steps(prompt):
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a Python AI research assistant."},
