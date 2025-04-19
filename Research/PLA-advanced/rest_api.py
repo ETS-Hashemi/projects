@@ -12,11 +12,20 @@ def load_scenario_endpoint():
     global kb, queries
     data = request.json
     config_path = data.get("config_path")
+    context_number = data.get("context_number", "1")  # Default to context "1"
     if not config_path:
         return jsonify({"error": "config_path is required"}), 400
 
     try:
         kb, queries = load_scenario(config_path)
+
+        # Set the context number
+        context = {}
+        for rule in kb.rules:
+            if hasattr(rule, "context") and context_number in rule.context:
+                context.update(rule.context[context_number])
+        kb.set_context(context)
+
         return jsonify({"message": "Scenario loaded successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

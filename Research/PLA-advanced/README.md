@@ -202,6 +202,71 @@ print(f"Explanation: {explanation}")
 
 ---
 
+## 5. Benchmarking
+
+The framework includes a benchmarking script to measure the performance of reasoning over complex scenarios. To benchmark a scenario, use the `benchmark.py` script:
+
+```bash
+python benchmark.py <scenario_config.json>
+```
+
+Example:
+```bash
+python benchmark.py scenario_pharmaceutical_complex.json
+```
+
+The script will output the probabilities for each query and the total execution time.
+
+---
+
+## 6. REST API
+
+The framework provides a REST API for loading scenarios and querying the knowledge base. To start the API server, run:
+
+```bash
+python rest_api.py
+```
+
+### Endpoints
+
+1. **Load Scenario**
+   - **URL**: `/load`
+   - **Method**: `POST`
+   - **Body**:
+     ```json
+     {
+       "config_path": "scenario_pharmaceutical_complex.json"
+     }
+     ```
+   - **Response**:
+     ```json
+     {
+       "message": "Scenario loaded successfully"
+     }
+     ```
+
+2. **Query Knowledge Base**
+   - **URL**: `/query`
+   - **Method**: `POST`
+   - **Body**:
+     ```json
+     {
+       "query": "PublicNotification"
+     }
+     ```
+   - **Response**:
+     ```json
+     {
+       "query": "PublicNotification",
+       "probability": 0.855,
+       "explanation": "AdverseReaction and NewDrug triggered RecallRequired with P=0.7..."
+     }
+     ```
+
+This API allows integration with external systems for real-time reasoning.
+
+---
+
 ## License
 
 Licensed under the **Apache License 2.0**.  

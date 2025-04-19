@@ -172,3 +172,23 @@ The **Probabilistic Logic Agent Framework** integrates symbolic, probabilistic, 
 This combination makes the framework suitable for complex domains like auditing, accounting, logistics, and medical diagnosis.
 
 ---
+
+## **6. Benchmarking**
+
+The framework includes a benchmarking module to evaluate the performance of probabilistic reasoning over complex scenarios. The benchmarking script measures:
+- Query execution time.
+- Total execution time for all queries in a scenario.
+
+This helps identify performance bottlenecks and optimize reasoning for large-scale scenarios.
+
+---
+
+## **7. REST API**
+
+The REST API provides programmatic access to the framework, enabling integration with external systems. It supports:
+1. **Loading Scenarios**: Dynamically load JSON scenarios into the knowledge base.
+2. **Querying the Knowledge Base**: Retrieve probabilities and explanations for specific queries.
+
+The API is built using Flask and can be extended to support additional endpoints.
+
+---
