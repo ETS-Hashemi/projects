@@ -11,33 +11,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ✅ Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python 3.10
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: 📦 Create venv, install OpenAI 0.28.1 (stable), run agent
+      - name: Create venv, install OpenAI 0.28.1 (GPT-3.5 support), run agent
         working-directory: Research/PLA
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install --no-cache-dir openai==0.28.1
+          pip install openai==0.28.1
           python -c "import openai; print('✅ OpenAI version:', openai.__version__)"
           python project_agent/main.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-      - name: 🚀 Commit NEXT_STEPS.md
+      - name: Commit NEXT_STEPS.md
         working-directory: Research/PLA
         run: |
           git config user.name "project-bot"
           git config user.email "bot@example.com"
           git add NEXT_STEPS.md
           git commit -m "🤖 Update next steps [bot]" || echo "No changes to commit"
-          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+          git push "https://x-access-token:${{ secrets.GH_BOT_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
         env:
           GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}

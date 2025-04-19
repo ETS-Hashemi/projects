@@ -5,7 +5,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_next_steps(prompt):
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # ✅ valid model name
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a Python AI research assistant."},
             {"role": "user", "content": prompt}
