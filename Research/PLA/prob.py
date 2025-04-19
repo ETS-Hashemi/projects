@@ -77,14 +77,21 @@ class ProbKB:
                         # Calculate the probability of the result
                         prob = rule.probability * min(inferred_facts[c] for c in rule.condition)
                         new_facts[rule.result] = prob
-                        explanations.append(f"Rule applied: {rule} with P={prob}")
+                        if rule.result in inferred_facts:
+                            explanations.append(
+                                f"{' and '.join(map(str, rule.condition))} reinforced {rule.result} with P={prob:.3f}."
+                            )
+                        else:
+                            explanations.append(
+                                f"{' and '.join(map(str, rule.condition))} triggered {rule.result} with P={prob:.3f}."
+                            )
             if not new_facts:
                 break
             inferred_facts.update(new_facts)
 
         # Check if the query is in the inferred facts
         if query in inferred_facts:
-            explanation = " -> ".join(explanations)
+            explanation = " ".join(explanations)  # Sentences are separated by a period and space
             return inferred_facts[query], explanation
 
         return 0.0, "No matching rule found."

@@ -35,13 +35,16 @@ def main():
         prob, explanation = engine.query(query)
         print(f"  Probability: {prob:.3f}")  # Limit to 3 decimal places
         print("  Explanation:")
-        for line in explanation.split(" -> "):
-            if "with P=" in line:
-                # Extract and format the probability in the explanation
-                parts = line.split("with P=")
-                print(f"    - {parts[0]}with P={float(parts[1]):.3f}")
+        # Split explanation into sentences and format probabilities
+        for sentence in explanation.split(". "):  # Split by sentence
+            if "with P=" in sentence:
+                try:
+                    parts = sentence.split("with P=")
+                    print(f"    - {parts[0].strip()} with P={float(parts[1].strip('.')):.3f}")
+                except ValueError:
+                    print(f"    - {sentence.strip()}")
             else:
-                print(f"    - {line}")
+                print(f"    - {sentence.strip()}")
         print("-" * 50)
 
 if __name__ == "__main__":
