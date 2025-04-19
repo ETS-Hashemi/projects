@@ -1,7 +1,6 @@
 from openai import OpenAI
-import os
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = OpenAI()  # DO NOT pass api_key here — SDK auto-loads from env var
 
 def generate_next_steps(prompt):
     response = client.chat.completions.create(
