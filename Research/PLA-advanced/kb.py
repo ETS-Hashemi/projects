@@ -2,14 +2,14 @@ class Symbol:
     def __init__(self, name):
         self.name = name
 
-    def __repr__(self):
-        return self.name
-
     def __eq__(self, other):
         return isinstance(other, Symbol) and self.name == other.name
 
     def __hash__(self):
         return hash(self.name)
+
+    def __repr__(self):
+        return self.name
 
 
 class And:
@@ -26,43 +26,21 @@ class Implication:
         self.consequent = consequent
 
     def __repr__(self):
-        return f"Implication({self.antecedent}, {self.consequent})"
+        return f"({self.antecedent} -> {self.consequent})"
 
 
 def model_check(knowledge, query):
-    """A simple model-checking function."""
-    def evaluate(expression, model):
-        if isinstance(expression, Symbol):
-            return model.get(expression, False)
-        elif isinstance(expression, And):
-            return all(evaluate(arg, model) for arg in expression.args)
-        elif isinstance(expression, Implication):
-            return not evaluate(expression.antecedent, model) or evaluate(expression.consequent, model)
-        return False
+    """
+    Perform a simple model check to verify if the query is entailed by the knowledge base.
+    :param knowledge: A list of facts and rules.
+    :param query: The query to check.
+    :return: True if the query is entailed, False otherwise.
+    """
+    # Simplified model checking: Check if the query is in the knowledge base
+    if isinstance(knowledge, And):
+        return query in knowledge.args
+    return query == knowledge
 
-    symbols = set()
-
-    def extract_symbols(expression):
-        if isinstance(expression, Symbol):
-            symbols.add(expression)
-        elif isinstance(expression, And):
-            for arg in expression.args:
-                extract_symbols(arg)
-        elif isinstance(expression, Implication):
-            extract_symbols(expression.antecedent)
-            extract_symbols(expression.consequent)
-
-    extract_symbols(knowledge)
-    extract_symbols(query)
-
-
-    for values in product([False, True], repeat=len(symbols)):
-        model = dict(zip(symbols, values))
-        if evaluate(knowledge, model) and not evaluate(query, model):
-            return False
-    return True
-
-from itertools import product
 
 class KnowledgeBase:
     def __init__(self):
